@@ -1,18 +1,13 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import { useQuery } from "react-query";
-
-import { UserService } from "../src/services";
-
-import styles from "../styles/Home.module.css";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import { useGetMeData } from '../src/hooks/useGetMe';
+import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
-  const { data: me } = useQuery("me", UserService.me, {
-    refetchInterval: 500,
-  });
+  const { data: me } = useGetMeData();
 
-  console.log("내 정보입니다", me);
+  console.log('내 정보입니다', me);
 
   return (
     <div className={styles.container}>
@@ -26,8 +21,7 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>Hello World!</h1>
 
         <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>src/services</code>,
+          Get started by editing <code className={styles.code}>src/services</code>,
           <code className={styles.code}>src/hooks</code>
         </p>
       </main>
@@ -38,7 +32,7 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{" "}
+          Powered by{' '}
           <span className={styles.logo}>
             <Image src="/numble.png" alt="NUMBLE Logo" width={72} height={16} />
           </span>

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { http } from '../utils/http';
 import Service from './service';
 
 type SignupAgreements = {
@@ -24,7 +24,9 @@ class AuthService extends Service {
       return;
     }
 
-    const { data } = await axios.post(process.env.NEXT_PUBLIC_API_HOST + '/auth/refresh', null, {
+    const { data } = await http({
+      url: '/auth/refresh',
+      method: 'get',
       headers: {
         Authorization: `Bearer ${refreshToken}`,
       },
@@ -36,12 +38,16 @@ class AuthService extends Service {
 
   /** 새로운 계정을 생성하고 토큰을 발급받습니다. */
   async signup(email: string, password: string, name: string, phoneNumber: string, agreements: SignupAgreements) {
-    const { data } = await axios.post(process.env.NEXT_PUBLIC_API_HOST + '/auth/signup', {
-      email,
-      password,
-      name,
-      phoneNumber,
-      agreements,
+    const { data } = await http({
+      url: '/auth/signup',
+      method: 'post',
+      data: {
+        email,
+        password,
+        name,
+        phoneNumber,
+        agreements,
+      },
     });
 
     super.setAccessToken(data.access);
@@ -50,7 +56,14 @@ class AuthService extends Service {
 
   /** 이미 생성된 계정의 토큰을 발급받습니다. */
   async login(email: string, password: string) {
-    const { data } = await axios.post(process.env.NEXT_PUBLIC_API_HOST + '/auth/login', { email, password });
+    const { data } = await http({
+      url: '/auth/login',
+      method: 'post',
+      data: {
+        email,
+        password,
+      },
+    });
 
     super.setAccessToken(data.access);
     super.setRefreshToken(data.refresh);

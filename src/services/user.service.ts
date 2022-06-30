@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { http } from '../utils/http';
 import Service from './service';
 
 class UserService extends Service {
@@ -13,7 +13,9 @@ class UserService extends Service {
       return;
     }
 
-    const { data } = await axios.get(process.env.NEXT_PUBLIC_API_HOST + '/users/me', {
+    const { data } = await http({
+      url: '/users/me',
+      method: 'get',
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -23,7 +25,7 @@ class UserService extends Service {
   }
 
   async read(id: number) {
-    const { data } = await axios.get(process.env.NEXT_PUBLIC_API_HOST + '/users/' + id);
+    const { data } = await http({ url: `/users/me/${id}`, method: 'get' });
 
     return data;
   }
