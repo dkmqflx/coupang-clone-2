@@ -5,7 +5,17 @@ import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import "antd/dist/antd.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            suspense: true,
+          },
+        },
+      })
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
