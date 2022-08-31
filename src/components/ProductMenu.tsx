@@ -1,5 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
+import { getOffset } from "../utils";
+import { queryType } from "../types/product.types";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { Select, Space, Row } from "antd";
@@ -17,16 +19,20 @@ const MenuSortText = styled.span<{ select: boolean }>`
     `}
 `;
 
-const ProductMenu = () => {
+const ProductMenu = ({ offset, limit, sorter }: queryType) => {
   const router = useRouter();
-  const { offset, limit, sorter } = router.query;
 
   const handleSelectSorter = (sorter: string) => {
-    router.push(`/products?offset=${offset}&limit=${limit}&sorter=${sorter}`);
+    router.push(`/products?offset=0&limit=${limit}&sorter=${sorter}`);
   };
 
   const handleSelectLimit = (limit: string) => {
-    router.push(`/products?offset=${offset}&limit=${limit}&sorter=${sorter}`);
+    router.push(
+      `/products?offset=${getOffset({
+        limit: Number(limit),
+        offset: Number(offset),
+      })}&limit=${limit}&sorter=${sorter}`
+    );
   };
 
   return (

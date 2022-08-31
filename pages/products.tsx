@@ -19,7 +19,7 @@ const ProductList = dynamic(() => import("../src/components/ProductList"), {
 export default function ProductListPage({ offset, limit, sorter }: queryType) {
   return (
     <Wrapper>
-      <ProductMenu />
+      <ProductMenu offset={offset} limit={limit} sorter={sorter} />
       <Suspense fallback={<Spinner />}>
         <ProductList offset={offset} limit={limit} sorter={sorter} />
       </Suspense>
