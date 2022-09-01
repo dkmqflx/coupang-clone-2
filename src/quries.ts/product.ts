@@ -1,12 +1,12 @@
-import axios from "axios";
 import { useQuery } from "react-query";
 import { productType, queryType } from "../types/product.types";
+import { request } from "../utils/axios";
 
 const getProductList = async ({ offset, limit, sorter }: queryType) => {
-  const { data } = await axios.get(
-    process.env.NEXT_PUBLIC_API_HOST +
-      `/products?offset=${offset}&limit=${limit}&sorter=${sorter}`
-  );
+  const { data } = await request({
+    url: `/products?offset=${offset}&limit=${limit}&sorter=${sorter}`,
+    method: "get",
+  });
 
   return data;
 };
