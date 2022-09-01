@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { getOffset } from "../utils";
+import { getOffset } from "../utils/product";
 import { queryType } from "../types/product.types";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";

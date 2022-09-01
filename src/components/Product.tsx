@@ -1,6 +1,6 @@
 import React from "react";
 import { productType } from "../types/product.types";
-import { getExpectedDeliveryDate } from "../utils";
+import { getExpectedDeliveryDate } from "../utils/product";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { Rate, Space } from "antd";
