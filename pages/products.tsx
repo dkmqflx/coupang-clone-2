@@ -1,12 +1,13 @@
 import React, { Suspense } from "react";
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { GetServerSideProps } from "next/types";
 import { queryType } from "../src/types/product.types";
+import { DEFAULT_URL } from "../src/constants";
 import ProductMenu from "../src/components/ProductMenu";
 import ProductPagination from "../src/components/ProductPagination";
 import Spinner from "../src/components/Spinner";
 import styled from "@emotion/styled";
-import { useRouter } from "next/router";
 
 const Wrapper = styled.div`
   margin: 20px auto;
@@ -42,6 +43,16 @@ export default function ProductListPage({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  if (!Object.keys(context.query).length) {
+    return {
+      redirect: {
+        permanent: true,
+        destination: DEFAULT_URL,
+      },
+      props: {},
+    };
+  }
+
   const {
     query: { offset, limit, sorter },
   } = context;
