@@ -6,6 +6,7 @@ import ProductMenu from "../src/components/ProductMenu";
 import ProductPagination from "../src/components/ProductPagination";
 import Spinner from "../src/components/Spinner";
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 
 const Wrapper = styled.div`
   margin: 20px auto;
@@ -16,7 +17,19 @@ const ProductList = dynamic(() => import("../src/components/ProductList"), {
   ssr: false,
 });
 
-export default function ProductListPage({ offset, limit, sorter }: queryType) {
+export default function ProductListPage({
+  offset: defaultOffset,
+  limit: defaultLimit,
+  sorter: defaultSorter,
+}: queryType) {
+  const route = useRouter();
+
+  const {
+    offset = defaultOffset,
+    limit = defaultLimit,
+    sorter = defaultSorter,
+  } = route.query;
+
   return (
     <Wrapper>
       <ProductMenu offset={offset} limit={limit} sorter={sorter} />

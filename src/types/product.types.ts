@@ -20,7 +20,7 @@ export type productType = {
 };
 
 export type queryType = {
-  offset: string;
-  limit: string;
-  sorter: string;
+  offset: string | string[] | undefined;
+  limit: string | string[] | undefined;
+  sorter: string | string[] | undefined;
 };

@@ -23,7 +23,11 @@ const ProductMenu = ({ offset, limit, sorter }: queryType) => {
   const router = useRouter();
 
   const handleSelectSorter = (sorter: string) => {
-    router.push(`/products?offset=0&limit=${limit}&sorter=${sorter}`);
+    router.push(
+      `/products?offset=0&limit=${limit}&sorter=${sorter}`,
+      undefined,
+      { shallow: true }
+    );
   };
 
   const handleSelectLimit = (limit: string) => {
@@ -31,7 +35,11 @@ const ProductMenu = ({ offset, limit, sorter }: queryType) => {
       `/products?offset=${getOffset({
         limit: Number(limit),
         offset: Number(offset),
-      })}&limit=${limit}&sorter=${sorter}`
+      })}&limit=${limit}&sorter=${sorter}`,
+      undefined,
+      {
+        shallow: true,
+      }
     );
   };
 

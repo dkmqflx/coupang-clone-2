@@ -11,7 +11,11 @@ const ProductPagination = ({ offset, limit, sorter }: queryType) => {
 
   const handleChangeOffset = (pagination: number) => {
     const offset = pagination === 1 ? 0 : (pagination - 1) * Number(limit);
-    router.push(`/products?offset=${offset}&limit=${limit}&sorter=${sorter}`);
+    router.push(
+      `/products?offset=${offset}&limit=${limit}&sorter=${sorter}`,
+      undefined,
+      { shallow: true }
+    );
   };
 
   const getCurrentPage = () => {
