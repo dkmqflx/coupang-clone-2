@@ -1,4 +1,4 @@
-import { SHOW_TWENTY_FOUR } from "../constants";
+import { SHOW_TWENTY_FOUR, SHOW_TWELVE } from '../constants';
 
 export const getExpectedDeliveryDate = (date: string) => {
   const dateObj = new Date(date);
@@ -15,8 +15,8 @@ export const getOffset = ({
   if (offset === 0) {
     return offset;
   } else if (limit === SHOW_TWENTY_FOUR) {
-    return offset !== limit ? limit : offset;
+    return limit;
   } else {
-    return offset > limit ? limit : offset;
+    return (offset / SHOW_TWENTY_FOUR) * SHOW_TWELVE;
   }
 };
