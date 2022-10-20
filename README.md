@@ -25,7 +25,7 @@ API 상태를 history API와 적절히 연동할 수 있는 방식도 고민해�
 
 - 그리고 incremental static regeneration의 `revalidate`를 설정하더라도 딜레이가 생기기 때문에 사용자에게 최신의 정보를 보여줄 수 없다는 단점이 있습니다.
 
-- 따라서 사용자의 선택에 따라 URL이 바뀌고, 해당 URL에 따라 정보를 불러와야 하기 때문에 SSR의 `getServerSideProps` 함수를 사용했습니다.
+- 따라서 사용자의 선택에 따라 URL이 바뀌고, 해당 URL에 따라 최신 정보를 불러와야 하기 때문에 SSR의 `getServerSideProps` 함수를 사용했습니다.
 
 <br/>
 
