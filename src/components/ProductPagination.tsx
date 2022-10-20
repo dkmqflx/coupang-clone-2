@@ -1,21 +1,17 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { queryType } from "../types/product.types";
-import { Pagination } from "antd";
-import { SHOW_TWENTY_FOUR } from "../constants";
+import React from 'react';
+import { queryType } from '../types/product.types';
+import { Pagination } from 'antd';
+import { SHOW_TWENTY_FOUR } from '../constants';
+import usePageRoute from '../hooks/usePageRoute';
 
 const DEFAULT_TOTAL = 38;
 
 const ProductPagination = ({ offset, limit, sorter }: queryType) => {
-  const router = useRouter();
+  const { updatePage } = usePageRoute();
 
   const handleChangeOffset = (pagination: number) => {
-    const offset = pagination === 1 ? 0 : (pagination - 1) * Number(limit);
-    router.push(
-      `/products?offset=${offset}&limit=${limit}&sorter=${sorter}`,
-      undefined,
-      { shallow: true }
-    );
+    const offset = `${pagination === 1 ? 0 : (pagination - 1) * Number(limit)}`;
+    updatePage({ offset, limit, sorter });
   };
 
   const getCurrentPage = () => {

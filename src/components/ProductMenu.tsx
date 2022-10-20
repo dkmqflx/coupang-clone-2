@@ -1,10 +1,10 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { getOffset } from "../utils/product";
-import { queryType } from "../types/product.types";
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-import { Select, Space, Row } from "antd";
+import React from 'react';
+import { getOffset } from '../utils/product';
+import { queryType } from '../types/product.types';
+import usePageRoute from '../hooks/usePageRoute';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { Select, Space, Row } from 'antd';
 
 const { Option } = Select;
 
@@ -20,59 +20,38 @@ const MenuSortText = styled.span<{ select: boolean }>`
 `;
 
 const ProductMenu = ({ offset, limit, sorter }: queryType) => {
-  const router = useRouter();
-
-  const handleSelectSorter = (sorter: string) => {
-    router.push(
-      `/products?offset=0&limit=${limit}&sorter=${sorter}`,
-      undefined,
-      { shallow: true }
-    );
-  };
-
-  const handleSelectLimit = (limit: string) => {
-    router.push(
-      `/products?offset=${getOffset({
-        limit: Number(limit),
-        offset: Number(offset),
-      })}&limit=${limit}&sorter=${sorter}`,
-      undefined,
-      {
-        shallow: true,
-      }
-    );
-  };
+  const { updatePage } = usePageRoute();
 
   return (
-    <Row justify="space-between">
+    <Row justify='space-between'>
       <Space>
         <MenuSortText
-          select={sorter === "bestAsc"}
-          onClick={() => handleSelectSorter("bestAsc")}
+          select={sorter === 'bestAsc'}
+          onClick={() => updatePage({ offset, limit, sorter: 'bestAsc' })}
         >
           쿠팡 랭킹순
         </MenuSortText>
         <MenuSortText
-          select={sorter === "salePriceAsc"}
-          onClick={() => handleSelectSorter("salePriceAsc")}
+          select={sorter === 'salePriceAsc'}
+          onClick={() => updatePage({ offset, limit, sorter: 'salePriceAsc' })}
         >
           낮은가격순
         </MenuSortText>
         <MenuSortText
-          select={sorter === "salePriceDesc"}
-          onClick={() => handleSelectSorter("salePriceDesc")}
+          select={sorter === 'salePriceDesc'}
+          onClick={() => updatePage({ offset, limit, sorter: 'salePriceDesc' })}
         >
           높은가격순
         </MenuSortText>
         <MenuSortText
-          select={sorter === "saleCountDesc"}
-          onClick={() => handleSelectSorter("saleCountDesc")}
+          select={sorter === 'saleCountDesc'}
+          onClick={() => updatePage({ offset, limit, sorter: 'saleCountDesc' })}
         >
           판매량순
         </MenuSortText>
         <MenuSortText
-          select={sorter === "latestAsc"}
-          onClick={() => handleSelectSorter("latestAsc")}
+          select={sorter === 'latestAsc'}
+          onClick={() => updatePage({ offset, limit, sorter: 'latestAsc' })}
         >
           최신순
         </MenuSortText>
@@ -82,10 +61,19 @@ const ProductMenu = ({ offset, limit, sorter }: queryType) => {
         style={{
           width: 120,
         }}
-        onChange={(value) => handleSelectLimit(value)}
+        onChange={(limit) =>
+          updatePage({
+            offset: `${getOffset({
+              limit: Number(limit),
+              offset: Number(offset),
+            })}`,
+            limit,
+            sorter,
+          })
+        }
       >
-        <Option value="12">12개씩 보기</Option>
-        <Option value="24">24개씩 보기</Option>
+        <Option value='12'>12개씩 보기</Option>
+        <Option value='24'>24개씩 보기</Option>
       </Select>
     </Row>
   );
