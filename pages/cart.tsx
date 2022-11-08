@@ -1,11 +1,21 @@
-import styled from '@emotion/styled';
+import CartItems from '../src/components/CartItems';
 import NoItemCart from '../src/components/NoItemCart';
+import useLogin from '../src/hooks/useLogin';
+import styled from '@emotion/styled';
 
 export default function CartPage() {
+  const { token, setAccessToken } = useLogin();
+
+  if (token === null) return null;
+
   return (
     <Wrapper>
       <Section>
-        <NoItemCart></NoItemCart>
+        {token ? (
+          <CartItems></CartItems>
+        ) : (
+          <NoItemCart setAccessToken={setAccessToken}></NoItemCart>
+        )}
       </Section>
     </Wrapper>
   );

@@ -16,3 +16,8 @@ export const Th = styled.th`
   height: 40px;
   font-size: 13px;
 `;
+
+export const Td = styled.td`
+  border-bottom: 1px solid #ddd;
+  color: #111;
+`;

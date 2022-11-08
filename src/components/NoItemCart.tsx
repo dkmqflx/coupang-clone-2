@@ -1,8 +1,14 @@
-import React from 'react';
+import { AuthService } from '../services';
+import { EMAIL, PASSWORD } from '../constants/login';
 import styled from '@emotion/styled';
 import { Table, Tr, Th } from './Common/Table';
 
-const NoItemCart = () => {
+const NoItemCart = ({ setAccessToken }: { setAccessToken: () => void }) => {
+  const haneldLogin = async () => {
+    await AuthService.login(EMAIL, PASSWORD);
+    setAccessToken();
+  };
+
   return (
     <>
       <Table>
@@ -28,7 +34,7 @@ const NoItemCart = () => {
           <NoItemLoginText>
             로그인을 하시면, 장바구니에 보관된 상품을 확인하실 수 있습니다.
           </NoItemLoginText>
-          <LoginButton>로그인하기</LoginButton>
+          <LoginButton onClick={haneldLogin}>로그인하기</LoginButton>
         </div>
       </TextContainer>
     </>
@@ -42,14 +48,6 @@ const TextContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-const NoItemText = styled.p`
-  font-weight: 700;
-  font-size: 14px;
-  color: #55575f;
-  margin-top: 20px;
-  margin-bottom: 0;
 `;
 
 const NoItemLoginText = styled.p`
@@ -68,4 +66,13 @@ const LoginButton = styled.button`
   border: 1px solid #777881;
   border-radius: 2px;
   font-size: 12px;
+`;
+
+export const NoItemText = styled.p`
+  font-weight: 700;
+  font-size: 14px;
+  color: #55575f;
+  margin-top: 20px;
+  margin-bottom: 0;
+  text-align: center;
 `;
