@@ -1,36 +1,104 @@
 import { useGetCartItems } from '../quries/cart';
+import { cartItemType } from '../types/cart';
 import CartItem from './CartItem';
+import styled from '@emotion/styled';
 import { Table, Tr, Th } from './Common/Table';
 
 const CartItems = () => {
-  const { data, isLoading } = useGetCartItems();
+  const { data } = useGetCartItems();
 
-  if (isLoading) return null;
+  if (!data) return null;
 
-  console.log(data);
+  const rocketItems = data.filter(
+    (item: cartItemType) => item.product.rocketType
+  );
+
+  const sellerItems = data.filter(
+    (item: cartItemType) => !item.product.rocketType
+  );
 
   return (
-    <div>
-      <Table>
-        <colgroup>
-          <col width='50' />
-          <col width='80' />
-          <col width='*' />
-          <col width='80' />
-          <col width='90' />
-        </colgroup>
-        <thead>
-          <Tr>
-            <Th></Th>
-            <Th colSpan={2}>상품정보</Th>
-            <Th>상품금액</Th>
-            <Th>배송비</Th>
-          </Tr>
-        </thead>
-      </Table>
-      <CartItem></CartItem>
-    </div>
+    <Table>
+      <colgroup>
+        <col width='10' />
+        <col width='40' />
+        <col width='200' />
+        <col width='20' />
+        <col width='30' />
+      </colgroup>
+      <thead>
+        <Tr>
+          <Th scope='col'>
+            <label htmlFor='checkAll'>
+              <CheckBoxInput type='checkbox' name='checkAll' />
+            </label>
+            <CheckBoxText>전체선택</CheckBoxText>
+          </Th>
+          <Th scope='scope=colgroup' colSpan={2}>
+            상품정보
+          </Th>
+          <Th scope='col'>상품금액</Th>
+          <Th scope='col'>배송비</Th>
+        </Tr>
+      </thead>
+      <tbody>
+        <Tr>
+          <RocketTd colSpan={5}>
+            <RocketTitle>로켓배송 상품 (로켓와우 포함)</RocketTitle>
+            <RocketDeliveryInfo>무료배송</RocketDeliveryInfo>
+            <RockDeliveryMinCondition>
+              (19,800원 이상 구매가능)
+            </RockDeliveryMinCondition>
+          </RocketTd>
+        </Tr>
+
+        {rocketItems.length &&
+          rocketItems.map((item: cartItemType) => (
+            <CartItem key={item.id} item={item}></CartItem>
+          ))}
+
+        <Tr></Tr>
+
+        {sellerItems.map((item: cartItemType) => (
+          <CartItem key={item.id} item={item}></CartItem>
+        ))}
+      </tbody>
+    </Table>
   );
 };
 
 export default CartItems;
+
+const RocketTitle = styled.span`
+  color: #111;
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+const RocketDeliveryInfo = styled.span`
+  margin-left: 10px;
+  color: #555;
+  font-size: 12px;
+  font-weight: 700;
+`;
+
+const RockDeliveryMinCondition = styled.span`
+  font-size: 12px;
+  color: #555;
+  margin-left: 5px;
+`;
+
+const RocketTd = styled.td`
+  text-align: left;
+  line-height: 16px;
+  padding: 26px 22px 24px 8px;
+`;
+
+const CheckBoxInput = styled.input`
+  margin-top: 4px;
+`;
+
+const CheckBoxText = styled.span`
+  margin-left: 4px;
+  position: absolute;
+`;
