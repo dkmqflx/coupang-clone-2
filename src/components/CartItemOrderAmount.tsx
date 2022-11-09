@@ -21,8 +21,8 @@ const CartItemOrderAmount = ({
       <Td colSpan={5}>
         {type === ROCKET_ITEM && totalPrice < ROCKET_MIN_TOTAL && (
           <RocketShppingText>
-            로켓배송 상품을 {ROCKET_MIN_TOTAL - totalPrice}원이상 추가하면 구매
-            가능!
+            로켓배송 상품을 {(ROCKET_MIN_TOTAL - totalPrice).toLocaleString()}
+            원이상 추가하면 구매 가능!
           </RocketShppingText>
         )}
 
@@ -39,7 +39,7 @@ const CartItemOrderAmount = ({
         <Icon>=</Icon>
 
         <Text>주문금액 </Text>
-        <TotalPrice>{totalPrice + shippingFee}</TotalPrice>
+        <TotalPrice>{(totalPrice + shippingFee).toLocaleString()}</TotalPrice>
         <Text>원</Text>
       </Td>
     </tr>
