@@ -1,10 +1,19 @@
 import Image from 'next/image';
-import { cartItemType } from '../types/cart';
+import { checkAddedcartItemType, itemType } from '../types/cart';
 import { Tr, Td } from './Common/Table';
 import styled from '@emotion/styled';
 
-const CartItem = ({ item }: { item: cartItemType }) => {
+const CartItem = ({
+  item,
+  handleCheck,
+  type,
+}: {
+  item: checkAddedcartItemType;
+  handleCheck: (type: itemType, e: React.ChangeEvent<HTMLInputElement>) => void;
+  type: itemType;
+}) => {
   const {
+    id,
     product: {
       imageUrl,
       name,
@@ -14,12 +23,18 @@ const CartItem = ({ item }: { item: cartItemType }) => {
       maxPoint,
     },
     quantity,
+    checked,
   } = item;
 
   return (
     <Tr>
       <Td>
-        <input type='checkbox' />
+        <input
+          type='checkbox'
+          id={`${id}`}
+          onChange={(e) => handleCheck(type, e)}
+          checked={checked}
+        />
       </Td>
       <Td>
         <Image src={imageUrl} alt={name} width={78} height={78}></Image>

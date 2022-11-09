@@ -1,21 +1,17 @@
 import { useGetCartItems } from '../quries/cart';
-import { cartItemType } from '../types/cart';
+import { checkAddedcartItemType } from '../types/cart';
+import { ROCKET_ITEM, SELLER_ITEM } from './../constants/cart';
+import useCartItems from '../hooks/useCartItems';
 import CartItem from './CartItem';
 import styled from '@emotion/styled';
 import { Table, Tr, Th } from './Common/Table';
 
 const CartItems = () => {
   const { data } = useGetCartItems();
+  const { rocketItems, sellerItems, handleCheckAll, handleCheck, checkAll } =
+    useCartItems(data);
 
   if (!data) return null;
-
-  const rocketItems = data.filter(
-    (item: cartItemType) => item.product.rocketType
-  );
-
-  const sellerItems = data.filter(
-    (item: cartItemType) => !item.product.rocketType
-  );
 
   return (
     <Table>
@@ -30,7 +26,12 @@ const CartItems = () => {
         <Tr>
           <Th scope='col'>
             <label htmlFor='checkAll'>
-              <CheckBoxInput type='checkbox' name='checkAll' />
+              <CheckBoxInput
+                type='checkbox'
+                name='checkAll'
+                onChange={handleCheckAll}
+                checked={checkAll}
+              />
             </label>
             <CheckBoxText>전체선택</CheckBoxText>
           </Th>
@@ -52,16 +53,28 @@ const CartItems = () => {
           </RocketTd>
         </Tr>
 
-        {rocketItems.length &&
-          rocketItems.map((item: cartItemType) => (
-            <CartItem key={item.id} item={item}></CartItem>
+        {rocketItems.length > 0 && (
+          <>
+            {rocketItems.map((item: checkAddedcartItemType) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                handleCheck={handleCheck}
+                type={ROCKET_ITEM}
+              ></CartItem>
+            ))}
+          </>
+        )}
+
+        {sellerItems.length > 0 &&
+          sellerItems.map((item: checkAddedcartItemType) => (
+            <CartItem
+              key={item.id}
+              item={item}
+              handleCheck={handleCheck}
+              type={SELLER_ITEM}
+            ></CartItem>
           ))}
-
-        <Tr></Tr>
-
-        {sellerItems.map((item: cartItemType) => (
-          <CartItem key={item.id} item={item}></CartItem>
-        ))}
       </tbody>
     </Table>
   );
