@@ -2,6 +2,7 @@ import { useGetCartItems } from '../quries/cart';
 import { checkAddedcartItemType } from '../types/cart';
 import { ROCKET_ITEM, SELLER_ITEM } from './../constants/cart';
 import useCartItems from '../hooks/useCartItems';
+import CartItemOrderAmount from './CartItemOrderAmount';
 import CartItem from './CartItem';
 import styled from '@emotion/styled';
 import { Table, Tr, Th } from './Common/Table';
@@ -63,18 +64,29 @@ const CartItems = () => {
                 type={ROCKET_ITEM}
               ></CartItem>
             ))}
+            <CartItemOrderAmount
+              type={ROCKET_ITEM}
+              items={rocketItems}
+            ></CartItemOrderAmount>
           </>
         )}
 
-        {sellerItems.length > 0 &&
-          sellerItems.map((item: checkAddedcartItemType) => (
-            <CartItem
-              key={item.id}
-              item={item}
-              handleCheck={handleCheck}
+        {sellerItems.length > 0 && (
+          <>
+            {sellerItems.map((item: checkAddedcartItemType) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                handleCheck={handleCheck}
+                type={SELLER_ITEM}
+              ></CartItem>
+            ))}
+            <CartItemOrderAmount
               type={SELLER_ITEM}
-            ></CartItem>
-          ))}
+              items={sellerItems}
+            ></CartItemOrderAmount>
+          </>
+        )}
       </tbody>
     </Table>
   );
