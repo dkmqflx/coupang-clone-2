@@ -23,7 +23,7 @@ export default function CartPage() {
 
 const Wrapper = styled.div`
   background-color: #f0f0f0;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
