@@ -1,6 +1,7 @@
 import React from 'react';
 import { ROCKET_ITEM } from '../constants/cart';
 import { checkAddedcartItemType, itemType } from '../types/cart';
+import { getTotalPrice, getShippingFee } from '../utils/cart';
 import styled from '@emotion/styled';
 
 const ROCKET_MIN_TOTAL = 19800;
@@ -12,16 +13,8 @@ const CartItemOrderAmount = ({
   items: checkAddedcartItemType[];
   type: itemType;
 }) => {
-  const checkedItems = items.filter((item) => item.checked);
-  const totalPrice = checkedItems.reduce(
-    (prev, cur) => prev + cur.product.salePrice,
-    0
-  );
-
-  const shippingFee = checkedItems.reduce(
-    (prev, cur) => prev + cur.product.shippinFee,
-    0
-  );
+  const totalPrice = getTotalPrice(items);
+  const shippingFee = getShippingFee(items);
 
   return (
     <tr>
