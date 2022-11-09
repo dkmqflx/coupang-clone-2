@@ -7,16 +7,23 @@ import CartItemOrderTotalPrice from './CartItemOrderTotalPrice';
 import CartItem from './CartItem';
 import styled from '@emotion/styled';
 import { Table, Tr, Th } from './Common/Table';
+import { CartService } from '../services';
 
 const CartItems = () => {
-  const { data } = useGetCartItems();
+  const { data, refetch } = useGetCartItems();
   const { rocketItems, sellerItems, handleCheckAll, handleCheck, checkAll } =
     useCartItems(data);
+
+  const resetItems = async () => {
+    await CartService.resetCartItems();
+    refetch();
+  };
 
   if (!data) return null;
 
   return (
     <>
+      <button onClick={resetItems}>reset items</button>
       <Table>
         <colgroup>
           <col width='10' />

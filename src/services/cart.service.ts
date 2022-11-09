@@ -8,6 +8,10 @@ class Cart {
 
     return data;
   }
+
+  async resetCartItems() {
+    await this.http.post(`/cart/reset`);
+  }
 }
 
 export default new Cart(httpService);
