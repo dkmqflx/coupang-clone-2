@@ -1,3 +1,5 @@
+import { ROCKET_ITEM, SELLER_ITEM } from './../constants/cart';
+
 export type cartItemType = {
   id: number;
   product: {
@@ -22,3 +24,7 @@ export type cartItemType = {
   };
   quantity: number;
 };
+
+export type checkAddedcartItemType = cartItemType & { checked: boolean };
+
+export type itemType = typeof ROCKET_ITEM | typeof SELLER_ITEM;
