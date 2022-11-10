@@ -12,6 +12,11 @@ class Cart {
   async resetCartItems() {
     await this.http.post(`/cart/reset`);
   }
+
+  async deleteCartItem(cartItemId: number) {
+    const { data } = await this.http.delete(`/cart-items/${cartItemId}`);
+    return data;
+  }
 }
 
 export default new Cart(httpService);

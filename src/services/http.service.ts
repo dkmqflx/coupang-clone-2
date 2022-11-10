@@ -4,6 +4,7 @@ import cookies from 'js-cookie';
 export interface httpImpl {
   get(url: string): AxiosPromise;
   post(url: string): AxiosPromise;
+  delete(url: string): AxiosPromise;
 }
 
 class HttpService implements httpImpl {
@@ -29,6 +30,13 @@ class HttpService implements httpImpl {
   post(url: string) {
     return this.request({
       method: 'post',
+      url,
+    });
+  }
+
+  delete(url: string) {
+    return this.request({
+      method: 'delete',
       url,
     });
   }
