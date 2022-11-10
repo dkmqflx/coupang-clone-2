@@ -82,7 +82,13 @@ const useCartItems = (data: cartItemType[]) => {
     setSellerItems(sellerItems);
   }, [data]);
 
-  return { rocketItems, sellerItems, handleCheckAll, handleCheck, checkAll };
+  return {
+    rocketItems,
+    sellerItems,
+    handleCheckAll,
+    handleCheck,
+    checkAll,
+  };
 };
 
 export default useCartItems;

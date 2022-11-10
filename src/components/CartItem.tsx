@@ -1,7 +1,8 @@
 import Image from 'next/image';
+import { useDeleteCartItem } from '../quries/cart';
 import { checkAddedcartItemType, itemType } from '../types/cart';
-import { Tr, Td } from './Common/Table';
 import styled from '@emotion/styled';
+import { Tr, Td } from './Common/Table';
 
 const CartItem = ({
   item,
@@ -26,6 +27,8 @@ const CartItem = ({
     checked,
   } = item;
 
+  const { mutate: deleteMutate } = useDeleteCartItem(id);
+
   return (
     <Tr>
       <Td>
@@ -47,13 +50,14 @@ const CartItem = ({
           ).getMonth()}/${new Date(
             expectedDeliveryDate
           ).getDate()} 도착 보장`}</DeliveryText>
-          <div>
+          <ItemInfoWrapper>
             <PriceText>{`${salePrice.toLocaleString()}원`}</PriceText>
             <QuantityInput
               type='number'
               defaultValue={quantity}
             ></QuantityInput>
-          </div>
+            <DeleteButton onClick={deleteMutate}>x</DeleteButton>
+          </ItemInfoWrapper>
         </Delivery>
 
         <PointText>
@@ -109,9 +113,15 @@ const PriceTd = styled(Td)`
   color: #111;
 `;
 
+const ItemInfoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
+`;
+
 const QuantityInput = styled.input`
-  width: 52px;
-  height: 24px;
+  width: 40px;
+  height: 20px;
   border: 1px solid #ddd;
   margin: 0 8px;
 `;
@@ -119,4 +129,13 @@ const QuantityInput = styled.input`
 const PriceText = styled.span`
   color: #888;
   font-size: 12px;
+`;
+
+const DeleteButton = styled.button`
+  height: 20px;
+  width: 20px;
+  color: #111;
+  font-size: 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
 `;
