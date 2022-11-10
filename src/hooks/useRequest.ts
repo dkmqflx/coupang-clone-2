@@ -3,6 +3,9 @@ import {
   QueryFunction,
   UseQueryOptions,
   useQuery,
+  useMutation,
+  UseMutationOptions,
+  UseMutateAsyncFunction,
 } from 'react-query';
 
 export const useRequest = (
@@ -11,4 +14,11 @@ export const useRequest = (
   option?: UseQueryOptions
 ): any => {
   return useQuery(key, request, { ...option });
+};
+
+export const useMutate = (
+  mutationFn: UseMutateAsyncFunction,
+  option?: UseMutationOptions
+): any => {
+  return useMutation(mutationFn, { ...option });
 };
