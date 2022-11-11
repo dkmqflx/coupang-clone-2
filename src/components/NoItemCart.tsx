@@ -2,11 +2,13 @@ import { AuthService } from '../services';
 import { EMAIL, PASSWORD } from '../constants/login';
 import styled from '@emotion/styled';
 import { Table, Tr, Th } from './Common/Table';
+import { useRouter } from 'next/router';
 
-const NoItemCart = ({ setAccessToken }: { setAccessToken: () => void }) => {
+const NoItemCart = () => {
+  const router = useRouter();
   const haneldLogin = async () => {
     await AuthService.login(EMAIL, PASSWORD);
-    setAccessToken();
+    router.reload();
   };
 
   return (

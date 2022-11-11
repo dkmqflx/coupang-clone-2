@@ -5,15 +5,13 @@ const useLogin = () => {
   const [token, setToken] = useState<string | null | undefined>(null);
 
   useEffect(() => {
-    setAccessToken();
+    (() => {
+      const token = cookies.get('accessToken');
+      setToken(token);
+    })();
   }, []);
 
-  const setAccessToken = () => {
-    const token = cookies.get('accessToken');
-    setToken(token);
-  };
-
-  return { token, setAccessToken };
+  return { token };
 };
 
 export default useLogin;

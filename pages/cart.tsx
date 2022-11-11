@@ -4,18 +4,14 @@ import useLogin from '../src/hooks/useLogin';
 import styled from '@emotion/styled';
 
 export default function CartPage() {
-  const { token, setAccessToken } = useLogin();
+  const { token } = useLogin();
 
   if (token === null) return null;
 
   return (
     <Wrapper>
       <Section>
-        {token ? (
-          <CartItems></CartItems>
-        ) : (
-          <NoItemCart setAccessToken={setAccessToken}></NoItemCart>
-        )}
+        {token ? <CartItems></CartItems> : <NoItemCart></NoItemCart>}
       </Section>
     </Wrapper>
   );
