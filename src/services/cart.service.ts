@@ -19,10 +19,9 @@ class Cart {
   }
 
   async updateCartItem(cartItemId: number, quantity: number) {
-    const { data } = await this.http.patch(
-      `/cart-items/${cartItemId}`,
-      quantity
-    );
+    const { data } = await this.http.patch(`/cart-items/${cartItemId}`, {
+      quantity,
+    });
     return data;
   }
 }

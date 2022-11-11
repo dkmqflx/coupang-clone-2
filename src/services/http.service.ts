@@ -5,7 +5,7 @@ export interface httpImpl {
   get(url: string): AxiosPromise;
   post(url: string): AxiosPromise;
   delete(url: string): AxiosPromise;
-  patch(url: string, data: number): AxiosPromise;
+  patch(url: string, data: any): AxiosPromise;
 }
 
 class HttpService implements httpImpl {
@@ -43,12 +43,12 @@ class HttpService implements httpImpl {
     });
   }
 
-  patch(url: string, data: number) {
+  patch(url: string, data: any) {
     return this.request({
       method: 'patch',
       url,
       data: {
-        quantity: data,
+        ...data,
       },
     });
   }
