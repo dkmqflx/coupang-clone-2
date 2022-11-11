@@ -11,14 +11,16 @@ import { CartService } from '../services';
 import NoItemCart from './NoItemCart';
 
 const CartItems = () => {
-  const { data, refetch } = useGetCartItems();
+  const { data, refetch, isFetched } = useGetCartItems();
   const { rocketItems, sellerItems, handleCheckAll, handleCheck, checkAll } =
-    useCartItems(data);
+    useCartItems(data, isFetched);
 
   const resetItems = async () => {
     await CartService.resetCartItems();
     refetch();
   };
+
+  console.log(data);
 
   if (!data) return null;
 
