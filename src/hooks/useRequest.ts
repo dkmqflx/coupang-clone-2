@@ -16,9 +16,23 @@ export const useRequest = (
   return useQuery(key, request, { ...option });
 };
 
+type MutationFunction<
+  TData = unknown,
+  TError = unknown,
+  TVariables = any,
+  TContext = unknown
+> = UseMutateAsyncFunction<TData, TError, TVariables, TContext>;
+
+type MutationOptions<
+  TData = unknown,
+  TError = unknown,
+  TVariables = any,
+  TContext = unknown
+> = UseMutationOptions<TData, TError, TVariables, TContext>;
+
 export const useMutate = (
-  mutationFn: UseMutateAsyncFunction,
-  option?: UseMutationOptions
+  mutationFn: MutationFunction,
+  option?: MutationOptions
 ): any => {
   return useMutation(mutationFn, { ...option });
 };
