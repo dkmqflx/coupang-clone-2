@@ -1,8 +1,9 @@
+import { useRouter } from 'next/router';
+import cookies from 'js-cookie';
 import { AuthService } from '../services';
 import { EMAIL, PASSWORD } from '../constants/login';
 import styled from '@emotion/styled';
 import { Table, Tr, Th } from './Common/Table';
-import { useRouter } from 'next/router';
 
 const NoItemCart = () => {
   const router = useRouter();
@@ -32,12 +33,14 @@ const NoItemCart = () => {
       </Table>
       <TextContainer>
         <NoItemText>장바구니에 담은 상품이 없습니다.</NoItemText>
-        <div>
-          <NoItemLoginText>
-            로그인을 하시면, 장바구니에 보관된 상품을 확인하실 수 있습니다.
-          </NoItemLoginText>
-          <LoginButton onClick={haneldLogin}>로그인하기</LoginButton>
-        </div>
+        {!cookies.get('accessToken') && (
+          <div>
+            <NoItemLoginText>
+              로그인을 하시면, 장바구니에 보관된 상품을 확인하실 수 있습니다.
+            </NoItemLoginText>
+            <LoginButton onClick={haneldLogin}>로그인하기</LoginButton>
+          </div>
+        )}
       </TextContainer>
     </>
   );

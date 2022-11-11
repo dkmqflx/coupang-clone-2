@@ -8,6 +8,7 @@ import CartItem from './CartItem';
 import styled from '@emotion/styled';
 import { Table, Tr, Th } from './Common/Table';
 import { CartService } from '../services';
+import NoItemCart from './NoItemCart';
 
 const CartItems = () => {
   const { data, refetch } = useGetCartItems();
@@ -24,85 +25,91 @@ const CartItems = () => {
   return (
     <>
       <button onClick={resetItems}>reset items</button>
-      <Table>
-        <colgroup>
-          <col width='10' />
-          <col width='40' />
-          <col width='200' />
-          <col width='20' />
-          <col width='30' />
-        </colgroup>
-        <thead>
-          <Tr>
-            <Th scope='col'>
-              <label htmlFor='checkAll'>
-                <CheckBoxInput
-                  type='checkbox'
-                  name='checkAll'
-                  onChange={handleCheckAll}
-                  checked={checkAll}
-                />
-              </label>
-              <CheckBoxText>전체선택</CheckBoxText>
-            </Th>
-            <Th scope='scope=colgroup' colSpan={2}>
-              상품정보
-            </Th>
-            <Th scope='col'>상품금액</Th>
-            <Th scope='col'>배송비</Th>
-          </Tr>
-        </thead>
-        <tbody>
-          <Tr>
-            <RocketTd colSpan={5}>
-              <RocketTitle>로켓배송 상품 (로켓와우 포함)</RocketTitle>
-              <RocketDeliveryInfo>무료배송</RocketDeliveryInfo>
-              <RockDeliveryMinCondition>
-                (19,800원 이상 구매가능)
-              </RockDeliveryMinCondition>
-            </RocketTd>
-          </Tr>
+      {data.length === 0 ? (
+        <NoItemCart></NoItemCart>
+      ) : (
+        <>
+          <Table>
+            <colgroup>
+              <col width='10' />
+              <col width='40' />
+              <col width='200' />
+              <col width='20' />
+              <col width='30' />
+            </colgroup>
+            <thead>
+              <Tr>
+                <Th scope='col'>
+                  <label htmlFor='checkAll'>
+                    <CheckBoxInput
+                      type='checkbox'
+                      name='checkAll'
+                      onChange={handleCheckAll}
+                      checked={checkAll}
+                    />
+                  </label>
+                  <CheckBoxText>전체선택</CheckBoxText>
+                </Th>
+                <Th scope='scope=colgroup' colSpan={2}>
+                  상품정보
+                </Th>
+                <Th scope='col'>상품금액</Th>
+                <Th scope='col'>배송비</Th>
+              </Tr>
+            </thead>
+            <tbody>
+              <Tr>
+                <RocketTd colSpan={5}>
+                  <RocketTitle>로켓배송 상품 (로켓와우 포함)</RocketTitle>
+                  <RocketDeliveryInfo>무료배송</RocketDeliveryInfo>
+                  <RockDeliveryMinCondition>
+                    (19,800원 이상 구매가능)
+                  </RockDeliveryMinCondition>
+                </RocketTd>
+              </Tr>
 
-          {rocketItems.length > 0 && (
-            <>
-              {rocketItems.map((item: checkAddedcartItemType) => (
-                <CartItem
-                  key={item.id}
-                  item={item}
-                  handleCheck={handleCheck}
-                  type={ROCKET_ITEM}
-                ></CartItem>
-              ))}
-              <CartItemOrderAmount
-                type={ROCKET_ITEM}
-                items={rocketItems}
-              ></CartItemOrderAmount>
-            </>
-          )}
+              {rocketItems.length > 0 && (
+                <>
+                  {rocketItems.map((item: checkAddedcartItemType) => (
+                    <CartItem
+                      key={item.id}
+                      item={item}
+                      handleCheck={handleCheck}
+                      type={ROCKET_ITEM}
+                    ></CartItem>
+                  ))}
+                  <CartItemOrderAmount
+                    type={ROCKET_ITEM}
+                    items={rocketItems}
+                  ></CartItemOrderAmount>
+                </>
+              )}
 
-          {sellerItems.length > 0 && (
-            <>
-              {sellerItems.map((item: checkAddedcartItemType) => (
-                <CartItem
-                  key={item.id}
-                  item={item}
-                  handleCheck={handleCheck}
-                  type={SELLER_ITEM}
-                ></CartItem>
-              ))}
-              <CartItemOrderAmount
-                type={SELLER_ITEM}
-                items={sellerItems}
-              ></CartItemOrderAmount>
-            </>
-          )}
-        </tbody>
-      </Table>
+              {sellerItems.length > 0 && (
+                <>
+                  {sellerItems.map((item: checkAddedcartItemType) => (
+                    <CartItem
+                      key={item.id}
+                      item={item}
+                      handleCheck={handleCheck}
+                      type={SELLER_ITEM}
+                    ></CartItem>
+                  ))}
+                  <CartItemOrderAmount
+                    type={SELLER_ITEM}
+                    items={sellerItems}
+                  ></CartItemOrderAmount>
+                </>
+              )}
+            </tbody>
+          </Table>
 
-      <CartItemOrderTotalPrice
-        rocketItems={rocketItems}
-        sellerItems={sellerItems}
-      ></CartItemOrderTotalPrice>
+          <CartItemOrderTotalPrice
+            rocketItems={rocketItems}
+            sellerItems={sellerItems}
+          ></CartItemOrderTotalPrice>
+        </>
+      )}
     </>
   );
 };
