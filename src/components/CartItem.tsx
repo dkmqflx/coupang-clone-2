@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useDeleteCartItem } from '../quries/cart';
+import { useDeleteCartItem, useUpdateCartItem } from '../quries/cart';
 import { checkAddedcartItemType, itemType } from '../types/cart';
 import styled from '@emotion/styled';
 import { Tr, Td } from './Common/Table';
@@ -28,6 +28,7 @@ const CartItem = ({
   } = item;
 
   const { mutate: deleteMutate } = useDeleteCartItem(id);
+  const { mutate: updateMutate } = useUpdateCartItem(id);
 
   return (
     <Tr>
@@ -54,7 +55,9 @@ const CartItem = ({
             <PriceText>{`${salePrice.toLocaleString()}원`}</PriceText>
             <QuantityInput
               type='number'
-              defaultValue={quantity}
+              min={0}
+              value={quantity}
+              onChange={(e) => updateMutate(e.target.value)}
             ></QuantityInput>
             <DeleteButton onClick={deleteMutate}>x</DeleteButton>
           </ItemInfoWrapper>
