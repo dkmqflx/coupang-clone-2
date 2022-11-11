@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { debounce } from 'lodash';
 import { useDeleteCartItem, useUpdateCartItem } from '../quries/cart';
 import { checkAddedcartItemType, itemType } from '../types/cart';
 import styled from '@emotion/styled';
@@ -30,6 +31,10 @@ const CartItem = ({
   const { mutate: deleteMutate } = useDeleteCartItem(id);
   const { mutate: updateMutate } = useUpdateCartItem(id);
 
+  const handleUpdateQuantity = debounce((quantity: string) => {
+    updateMutate(quantity);
+  }, 500);
+
   return (
     <Tr>
       <Td>
@@ -57,7 +62,7 @@ const CartItem = ({
               type='number'
               min={0}
               value={quantity}
-              onChange={(e) => updateMutate(e.target.value)}
+              onChange={(e) => handleUpdateQuantity(e.target.value)}
             ></QuantityInput>
             <DeleteButton onClick={deleteMutate}>x</DeleteButton>
           </ItemInfoWrapper>
