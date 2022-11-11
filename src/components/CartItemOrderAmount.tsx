@@ -27,13 +27,13 @@ const CartItemOrderAmount = ({
         )}
 
         <Text>상품가격 </Text>
-        <Price>{totalPrice}</Price>
+        <Price>{totalPrice.toLocaleString()}</Price>
         <Text>원</Text>
 
         <Icon>+</Icon>
 
         <Text>배송비 </Text>
-        <Price>{shippingFee}</Price>
+        <Price>{shippingFee.toLocaleString()}</Price>
         <Text>원</Text>
 
         <Icon>=</Icon>

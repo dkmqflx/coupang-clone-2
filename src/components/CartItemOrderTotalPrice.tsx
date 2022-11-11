@@ -12,6 +12,7 @@ const CartItemOrderTotalPrice = ({
   const totalPrice = getTotalPrice(rocketItems) + getTotalPrice(sellerItems);
   const totalShippingFee =
     getShippingFee(rocketItems) + getShippingFee(sellerItems);
+
   return (
     <Wrapper>
       <Text>총 상품가격 </Text>

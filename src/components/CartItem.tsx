@@ -32,7 +32,7 @@ const CartItem = ({
   const { mutate: updateMutate } = useUpdateCartItem(id);
 
   const handleUpdateQuantity = debounce((quantity: string) => {
-    updateMutate(quantity);
+    updateMutate(Number(quantity));
   }, 500);
 
   return (
@@ -72,7 +72,7 @@ const CartItem = ({
           <span>{`최대 ${maxPoint}원 적립`}</span>
         </PointText>
       </Td>
-      <PriceTd>{`${salePrice.toLocaleString()}원`}</PriceTd>
+      <PriceTd>{`${(salePrice * quantity).toLocaleString()}원`}</PriceTd>
       <Td>{shippinFee === 0 ? `무료` : `${shippinFee.toLocaleString()}원`}</Td>
     </Tr>
   );
