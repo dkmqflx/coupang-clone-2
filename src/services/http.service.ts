@@ -5,6 +5,7 @@ export interface httpImpl {
   get(url: string): AxiosPromise;
   post(url: string): AxiosPromise;
   delete(url: string): AxiosPromise;
+  patch(url: string, data: number): AxiosPromise;
 }
 
 class HttpService implements httpImpl {
@@ -16,6 +17,7 @@ class HttpService implements httpImpl {
       baseURL: process.env.NEXT_PUBLIC_API_HOST,
       headers: {
         Authorization: `Bearer ${this.accessToken}`,
+        'Content-Type': `application/json`,
       },
     });
   }
@@ -38,6 +40,16 @@ class HttpService implements httpImpl {
     return this.request({
       method: 'delete',
       url,
+    });
+  }
+
+  patch(url: string, data: number) {
+    return this.request({
+      method: 'patch',
+      url,
+      data: {
+        quantity: data,
+      },
     });
   }
 }

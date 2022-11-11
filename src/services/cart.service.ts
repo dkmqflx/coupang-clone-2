@@ -17,6 +17,14 @@ class Cart {
     const { data } = await this.http.delete(`/cart-items/${cartItemId}`);
     return data;
   }
+
+  async updateCartItem(cartItemId: number, quantity: number) {
+    const { data } = await this.http.patch(
+      `/cart-items/${cartItemId}`,
+      quantity
+    );
+    return data;
+  }
 }
 
 export default new Cart(httpService);
