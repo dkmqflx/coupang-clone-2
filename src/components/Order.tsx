@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import { Title, Table, Tr } from '../styles/table';
 
 const Order = () => {
   return (
@@ -18,15 +18,15 @@ const Order = () => {
 
         <tbody>
           <Tr>
-            <td>이름</td>
+            <th>이름</th>
             <td>김넘블</td>
           </Tr>
           <Tr>
-            <td>이메일</td>
+            <th>이메일</th>
             <td>test@numble.it</td>
           </Tr>
           <Tr>
-            <td>휴대폰 번호</td>
+            <th>휴대폰 번호</th>
             <td>
               <div>
                 <input type='text' />
@@ -51,15 +51,15 @@ const Order = () => {
 
         <tbody>
           <Tr>
-            <td>이름</td>
+            <th>이름</th>
             <td>김넘블</td>
           </Tr>
           <Tr>
-            <td>배송주소</td>
+            <th>배송주소</th>
             <td></td>
           </Tr>
           <Tr>
-            <td>연락처</td>
+            <th>연락처</th>
             <td>010 - 1234 - 5678</td>
           </Tr>
         </tbody>
@@ -79,12 +79,6 @@ const TitleWrapper = styled.div`
   margin-top: 28px;
 `;
 
-const Title = styled.h3`
-  font-size: 30px;
-  color: #111;
-  margin: 0;
-`;
-
 const OrderStep = styled.div`
   padding-right: 5px;
   margin-top: 20px;
@@ -94,41 +88,6 @@ const OrderStep = styled.div`
 
   & span:nth-child(2) {
     color: #346aff;
-  }
-`;
-
-const Table = styled.table`
-  border-top: 2px solid #cecece;
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 28px;
-
-  & caption {
-    text-align: left;
-    padding-left: 2px;
-    margin-bottom: 8px;
-    font-size: 20px;
-    font-weight: 700;
-    color: #333;
-  }
-`;
-
-const Tr = styled.tr`
-  font-size: 12px;
-  color: #333;
-
-  td:first-child {
-    width: 104px;
-    font-weight: 700;
-    text-align: right;
-    background: #f4f4f4;
-    padding: 7px 10px 7px 15px;
-    border: solid #e4e4e4;
-    border-width: 0 1px 1px 0;
-  }
-  td:last-child {
-    border-bottom: 1px solid #e4e4e4;
-    padding: 10px 16px;
   }
 `;
 
