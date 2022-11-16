@@ -1,11 +1,17 @@
-import { buyerType } from '../types/order';
+import { buyerType, addressType } from '../types/order';
 import { dashToPhoneNumber } from '../utils';
 import styled from '@emotion/styled';
 import { Title, Table, Tr } from '../styles/table';
 
-const Order = ({ buyer }: { buyer: buyerType }) => {
+const Order = ({
+  buyer,
+  address,
+}: {
+  buyer: buyerType;
+  address: addressType;
+}) => {
   const { name, email, phoneNumber } = buyer;
-
+  const { receiver, phoneNumber: addressPhoneNumber, base, detail } = address;
   return (
     <div>
       <TitleWrapper>
@@ -59,15 +65,15 @@ const Order = ({ buyer }: { buyer: buyerType }) => {
         <tbody>
           <Tr>
             <th>이름</th>
-            <td>김넘블</td>
+            <td>{receiver}</td>
           </Tr>
           <Tr>
             <th>배송주소</th>
-            <td></td>
+            <td>{`${base} ${detail}`}</td>
           </Tr>
           <Tr>
             <th>연락처</th>
-            <td>010 - 1234 - 5678</td>
+            <td>{addressPhoneNumber}</td>
           </Tr>
         </tbody>
       </Table>

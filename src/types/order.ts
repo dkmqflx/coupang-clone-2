@@ -3,15 +3,7 @@ export type orderSheetType = {
   coupons: [];
   coupangCash: number;
   coupayMoney: number;
-  address: {
-    id: number;
-    receiver: string;
-    phoneNumber: string;
-    base: string;
-    detail: string;
-    isFreshAvailable: boolean;
-    isWowAAvailable: boolean;
-  };
+  address: addressType;
   orderItems: { product: productType; quantity: number }[];
 };
 
@@ -19,6 +11,16 @@ export type buyerType = {
   name: string;
   email: string;
   phoneNumber: string;
+};
+
+export type addressType = {
+  id: number;
+  receiver: string;
+  phoneNumber: string;
+  base: string;
+  detail: string;
+  isFreshAvailable: boolean;
+  isWowAAvailable: boolean;
 };
 
 export type productType = {
