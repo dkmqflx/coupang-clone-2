@@ -1,9 +1,5 @@
 export type orderSheetType = {
-  buyer: {
-    name: string;
-    email: string;
-    phoneNumber: string;
-  };
+  buyer: buyerType;
   coupons: [];
   coupangCash: number;
   coupayMoney: number;
@@ -17,6 +13,12 @@ export type orderSheetType = {
     isWowAAvailable: boolean;
   };
   orderItems: { product: productType; quantity: number }[];
+};
+
+export type buyerType = {
+  name: string;
+  email: string;
+  phoneNumber: string;
 };
 
 export type productType = {

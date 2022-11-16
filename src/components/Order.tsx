@@ -1,7 +1,11 @@
+import { buyerType } from '../types/order';
+import { dashToPhoneNumber } from '../utils';
 import styled from '@emotion/styled';
 import { Title, Table, Tr } from '../styles/table';
 
-const Order = () => {
+const Order = ({ buyer }: { buyer: buyerType }) => {
+  const { name, email, phoneNumber } = buyer;
+
   return (
     <div>
       <TitleWrapper>
@@ -19,17 +23,20 @@ const Order = () => {
         <tbody>
           <Tr>
             <th>이름</th>
-            <td>김넘블</td>
+            <td>{name}</td>
           </Tr>
           <Tr>
             <th>이메일</th>
-            <td>test@numble.it</td>
+            <td>{email}</td>
           </Tr>
           <Tr>
             <th>휴대폰 번호</th>
             <td>
               <div>
-                <input type='text' />
+                <input
+                  type='text'
+                  defaultValue={dashToPhoneNumber(phoneNumber)}
+                />
                 <PhoneDescription>
                   쿠폰/티켓정보는 구매한 분의 번호로 전송됩니다.
                 </PhoneDescription>

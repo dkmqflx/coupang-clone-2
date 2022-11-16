@@ -12,3 +12,13 @@ export const parseCookie = (
 
   return cookieValue?.split('=')[1];
 };
+
+export const dashToPhoneNumber = (phoneNumber: string) => {
+  const dashedPhoneNumber =
+    phoneNumber.slice(0, 3) +
+    '-' +
+    phoneNumber.slice(3, 7) +
+    '-' +
+    phoneNumber.slice(7);
+  return dashedPhoneNumber;
+};

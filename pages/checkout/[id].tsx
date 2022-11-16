@@ -13,9 +13,10 @@ export default function CheckoutPage({
   orderSheet: orderSheetType;
 }) {
   console.log(orderSheet);
+  const { buyer } = orderSheet;
   return (
     <Wrapper>
-      <Order></Order>
+      <Order buyer={buyer}></Order>
       <PaymentInfo></PaymentInfo>
     </Wrapper>
   );
