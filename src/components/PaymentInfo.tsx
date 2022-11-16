@@ -1,7 +1,21 @@
+import { useState } from 'react';
+import { getPaymentInfo } from '../utils';
+import { productType } from '../types/order';
 import { Table, Tr } from '../styles/table';
 import styled from '@emotion/styled';
 
-const PaymentInfo = () => {
+const PaymentInfo = ({
+  coupangCash,
+  orderItems,
+}: {
+  coupangCash: number;
+  orderItems: { quantity: number; product: productType }[];
+}) => {
+  const { totleShppingFee, totlePrice, totleSaveCash } =
+    getPaymentInfo(orderItems);
+
+  const [check, setCheck] = useState('coupay');
+
   return (
     <div>
       <Table>
@@ -9,33 +23,72 @@ const PaymentInfo = () => {
         <tbody>
           <Tr>
             <th>총상품가격</th>
-            <td>100000</td>
+            <td>
+              <strong>{totlePrice.toLocaleString()}</strong>
+              <span>원</span>
+            </td>
           </Tr>
           <Tr>
             <th>할인쿠폰</th>
-            <td>0원</td>
+            <Td>
+              <DiscountText>
+                <strong>0</strong>
+                <span>원</span>
+              </DiscountText>
+              <SubInfoText>적용 가능한 할인쿠폰이 없습니다.</SubInfoText>
+            </Td>
           </Tr>
           <Tr>
             <th>배송비</th>
-            <td>0원</td>
+            <td>
+              <strong>{totleShppingFee.toLocaleString()}</strong>
+              <span>원</span>
+            </td>
           </Tr>
           <Tr>
             <th>쿠팡캐시</th>
-            <td>0원</td>
+            <Td>
+              <strong>0</strong>
+              <span>원</span>
+              <SubInfoText>
+                <span>보유 : </span>
+                <strong>{coupangCash.toLocaleString()}</strong>
+                <span>원</span>
+              </SubInfoText>
+            </Td>
           </Tr>
           <Tr>
             <th>총결제금액</th>
-            <td>0원</td>
+            <Td>
+              <strong>{totlePrice.toLocaleString()}</strong>
+              <span>원</span>
+
+              <SubInfoText>
+                <span>캐시적립 예정 : </span>
+                <strong>{totleSaveCash.toLocaleString()}</strong>
+                <span>원</span>
+              </SubInfoText>
+            </Td>
           </Tr>
           <Tr>
             <th>결제방법</th>
             <td>
               <span>
-                <input type='radio' id='coupay' defaultChecked />
+                <input
+                  type='radio'
+                  id='coupay'
+                  checked={check === 'coupay'}
+                  onChange={(e) => setCheck(e.target.id)}
+                />
                 <label htmlFor='coupay'>쿠페이머니</label>
               </span>
               <span>
-                <input type='radio' id='phone' />
+                <input
+                  type='radio'
+                  id='phone'
+                  checked={check === 'phone'}
+                  onChange={(e) => setCheck(e.target.id)}
+                />
                 <label htmlFor='phone'>휴대폰</label>
               </span>
             </td>
@@ -67,4 +120,19 @@ const Button = styled.button`
   cursor: pointer;
   width: 240px;
   border-radius: 4px;
+`;
+
+const Td = styled.td`
+  position: relative;
+`;
+
+const DiscountText = styled.span`
+  font-size: 12px;
+  color: #ff0025;
+`;
+
+const SubInfoText = styled.span`
+  display: inline-block;
+  position: absolute;
+  left: 180px;
 `;

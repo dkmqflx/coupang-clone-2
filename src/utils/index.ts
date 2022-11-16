@@ -1,3 +1,5 @@
+import { productType } from '../types/order';
+
 type cookieType = 'accessToken' | 'refreshToken';
 
 export const parseCookie = (
@@ -21,4 +23,25 @@ export const dashToPhoneNumber = (phoneNumber: string) => {
     '-' +
     phoneNumber.slice(7);
   return dashedPhoneNumber;
+};
+
+export const getPaymentInfo = (
+  orderItems: { quantity: number; product: productType }[]
+) => {
+  const totleShppingFee = orderItems.reduce(
+    (prev, cur) => prev + cur.product.shippinFee,
+    0
+  );
+
+  const totlePrice = orderItems.reduce(
+    (prev, cur) => prev + cur.product.salePrice,
+    0
+  );
+
+  const totleSaveCash = orderItems.reduce(
+    (prev, cur) => prev + cur.product.maxPoint,
+    0
+  );
+
+  return { totleShppingFee, totlePrice, totleSaveCash };
 };

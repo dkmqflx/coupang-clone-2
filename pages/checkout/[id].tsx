@@ -12,12 +12,15 @@ export default function CheckoutPage({
 }: {
   orderSheet: orderSheetType;
 }) {
-  console.log(orderSheet);
-  const { buyer } = orderSheet;
+  const { buyer, coupangCash, orderItems } = orderSheet;
+
   return (
     <Wrapper>
       <Order buyer={buyer}></Order>
-      <PaymentInfo></PaymentInfo>
+      <PaymentInfo
+        coupangCash={coupangCash}
+        orderItems={orderItems}
+      ></PaymentInfo>
     </Wrapper>
   );
 }
