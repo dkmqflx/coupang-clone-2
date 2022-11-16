@@ -1,9 +1,17 @@
-## NUMBLE - 가장 실무에 가까운 쿠팡 클론코딩 1회차
+- [Numble](https://www.numble.it/) 에서 진행한 [React 가장 실무에 가까운 쿠팡 클론 코딩 챕터 Ⅰ](https://www.numble.it/84b74183-c72e-4502-91c9-e41fbf0aa7aa), [React 가장 실무에 가까운 쿠팡 클론 코딩 챕터 ⅠⅠ](https://www.numble.it/d15e84e8-813e-4292-beb8-40790443c69c) 챌린지에 참혀해서 ‘쿠팡' 서비스를 클론코딩 했습니다.
 
-<img width="752" alt="(220531)메인이미지_쿠팡클론코딩챌린지 (1)" src="https://user-images.githubusercontent.com/103182032/174029124-6e64d0c2-fc52-48c9-bd73-b91546682242.png" style="width:100%">
+- 총 6단계의 챌린지로 구성되어 있고 매 챌린지마다 2주 가량의 시간이 주어졌습니다
 
-[챌린지 페이지](https://www.numble.it/84b74183-c72e-4502-91c9-e41fbf0aa7aa)
+- 챌린지를 통해 필요한 기능을 구현하는 것뿐 아니라 모듈 설계 및 구현, 컴포넌트 분리, 상태 관리 및 API 통신과 같이 프론트엔드 개발에 필요한 지식들을 더 깊게 이해할 수 있었습니다.
 
-이번 챌린지에서는 로그인을 위해 필요한 Data Fetching 모듈을 만들어볼게요!
+- [1회차](https://github.com/dkmqflx/coupang-clone-1/tree/stage1)
 
-주어진 Interface에 맞게 Class 및 Function들을 만들어보며 지속가능한 모듈 설계와 프론트엔드에서의 객체지향에 대해서 고민해보아요.
+- [2회차](https://github.com/dkmqflx/coupang-clone-1/tree/stage2)
+
+- [3회차](https://github.com/dkmqflx/coupang-clone-1/tree/stage3)
+
+- [4회차](https://github.com/dkmqflx/coupang-clone-1/tree/stage4)
+
+- [5회차](https://github.com/dkmqflx/coupang-clone-1/tree/stage5)
+
+- [6회차](https://github.com/dkmqflx/coupang-clone-1/tree/stage6)
