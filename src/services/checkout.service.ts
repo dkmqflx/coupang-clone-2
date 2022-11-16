@@ -1,4 +1,5 @@
 import axios from 'axios';
+import cookies from 'js-cookie';
 
 class CheckoutService {
   private request;
@@ -13,6 +14,20 @@ class CheckoutService {
     const { data } = await this.request({
       method: 'get',
       url: `/ordersheet/${id}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return data;
+  };
+
+  getAddress = async () => {
+    const accessToken = cookies.get('accessToken');
+
+    const { data } = await this.request({
+      method: 'get',
+      url: `/address`,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
