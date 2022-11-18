@@ -7,7 +7,7 @@ import { css } from '@emotion/react';
 import DeliveryType from '../../src/components/DeliveryType';
 import useAddress from '../../src/hooks/useAddress';
 
-const address = () => {
+const AddressPopUp = () => {
   const { data } = useGetAddress();
   const { isReady, query } = useRouter();
   const [selectedId, setSelectedId] = useState<string | string[] | undefined>();
@@ -58,7 +58,7 @@ const address = () => {
   );
 };
 
-export default address;
+export default AddressPopUp;
 
 const Header = styled.h1`
   position: absolute;
