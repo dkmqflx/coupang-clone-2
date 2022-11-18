@@ -1,5 +1,6 @@
 import { buyerType, addressType } from '../types/order';
 import { dashToPhoneNumber } from '../utils';
+import useAddress from '../hooks/useAddress';
 import styled from '@emotion/styled';
 import { Title, Table, Tr } from '../styles/table';
 
@@ -11,7 +12,16 @@ const Order = ({
   address: addressType;
 }) => {
   const { name, email, phoneNumber } = buyer;
-  const { receiver, phoneNumber: addressPhoneNumber, base, detail } = address;
+  const {
+    receiver,
+    phoneNumber: addressPhoneNumber,
+    base,
+    detail,
+    id,
+  } = address;
+
+  const { address: selectedAddress, onPopUpAddress } = useAddress();
+
   return (
     <div>
       <TitleWrapper>
@@ -59,21 +69,31 @@ const Order = ({
       <Table>
         <caption>
           <span>받는사람정보</span>
-          <DeliveryButton>배송지변경</DeliveryButton>
+          <DeliveryButton onClick={() => onPopUpAddress(id)}>
+            배송지변경
+          </DeliveryButton>
         </caption>
 
         <tbody>
           <Tr>
             <th>이름</th>
-            <td>{receiver}</td>
+            <td>{selectedAddress ? selectedAddress.receiver : receiver}</td>
           </Tr>
           <Tr>
             <th>배송주소</th>
-            <td>{`${base} ${detail}`}</td>
+            <td>
+              {selectedAddress
+                ? `${selectedAddress.base} ${selectedAddress.detail}`
+                : `${base} ${detail}`}
+            </td>
           </Tr>
           <Tr>
             <th>연락처</th>
-            <td>{addressPhoneNumber}</td>
+            <td>
+              {selectedAddress
+                ? selectedAddress.phoneNumber
+                : addressPhoneNumber}
+            </td>
           </Tr>
         </tbody>
       </Table>
