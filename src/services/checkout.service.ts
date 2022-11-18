@@ -1,5 +1,6 @@
 import axios from 'axios';
 import cookies from 'js-cookie';
+import { paymentType } from './../types/order';
 
 class CheckoutService {
   private request;
@@ -30,6 +31,23 @@ class CheckoutService {
       url: `/address`,
       headers: {
         Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return data;
+  };
+
+  payment = async (paymentInfo: paymentType) => {
+    const accessToken = cookies.get('accessToken');
+
+    const { data } = await this.request({
+      method: 'post',
+      url: `/order/complete`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      data: {
+        ...paymentInfo,
       },
     });
 

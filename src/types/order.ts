@@ -42,3 +42,15 @@ export type productType = {
   isAssured: boolean;
   isEarlyDelivery: boolean;
 };
+
+export type payMethodType = 'mobile' | 'coupaymoney';
+export type mobileCarrierType = 'skt' | 'kt' | 'hello' | 'kct';
+
+export type paymentType = {
+  ordersheetId: number;
+  addressId: number;
+  usedCash: number;
+  payMethod: payMethodType;
+  mobileCarrier?: mobileCarrierType;
+  usedCoupaymoney?: number;
+};
