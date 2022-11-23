@@ -1,5 +1,5 @@
 import React from 'react';
-import { queryType } from '../types/product.types';
+import { queryType, productType } from '../types/product.types';
 import { useGetProductList } from '../quries.ts/product';
 import Product from './Product';
 import styled from '@emotion/styled';
@@ -12,11 +12,11 @@ const Container = styled.div`
 `;
 
 const ProductList = ({ offset, limit, sorter }: queryType) => {
-  const { data, isLoading } = useGetProductList({ offset, limit, sorter });
+  const { data } = useGetProductList({ offset, limit, sorter });
 
   return (
     <Container>
-      {data?.map((product) => (
+      {data?.map((product: productType) => (
         <Product key={product.id} product={product} />
       ))}
     </Container>
