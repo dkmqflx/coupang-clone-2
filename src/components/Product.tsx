@@ -1,66 +1,9 @@
-import React from "react";
-import { productType } from "../types/product.types";
-import { getExpectedDeliveryDate } from "../utils/product";
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-import { Rate, Space } from "antd";
-
-const IsFreeShipText = styled.div`
-  font-size: 12px;
-  color: #555;
-`;
-
-const NameText = styled.div`
-  font-size: 12px;
-  color: #111;
-`;
-
-const PriceText = styled.strong`
-  font-size: 16px;
-  color: #ae0000;
-`;
-const PriceUnit = styled.span`
-  color: #ae0000;
-`;
-
-const RewardBox = styled.div`
-  box-sizing: border-box;
-  display: inline-block;
-  padding: 0 8px;
-  height: 20px;
-  border-radius: 10px;
-  border: solid 1px #ccc;
-  background-color: #fff;
-
-  & > span {
-    line-height: 19px;
-    vertical-align: top;
-    color: #333;
-    font-size: 12px;
-  }
-`;
-
-const Rating = styled(Rate)`
-  font-size: 12px !important;
-
-  & li {
-    margin-right: 4px !important;
-  }
-  & svg {
-    width: 12px;
-    height: 12px;
-  }
-`;
-
-const SubInfoText = styled.span<{ isOriginalPrice: boolean }>`
-  color: #888;
-  font-size: 11px;
-  ${({ isOriginalPrice }) =>
-    isOriginalPrice &&
-    css`
-      text-decoration: line-through;
-    `}
-`;
+import React from 'react';
+import { productType } from '../types/product.types';
+import { getExpectedDeliveryDate } from '../utils/product';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { Rate, Space } from 'antd';
 
 const getPrice = ({
   originalPrice,
@@ -127,3 +70,60 @@ const Product = ({ product }: { key: number; product: productType }) => {
 };
 
 export default Product;
+
+const IsFreeShipText = styled.div`
+  font-size: 12px;
+  color: #555;
+`;
+
+const NameText = styled.div`
+  font-size: 12px;
+  color: #111;
+`;
+
+const PriceText = styled.strong`
+  font-size: 16px;
+  color: #ae0000;
+`;
+const PriceUnit = styled.span`
+  color: #ae0000;
+`;
+
+const RewardBox = styled.div`
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0 8px;
+  height: 20px;
+  border-radius: 10px;
+  border: solid 1px #ccc;
+  background-color: #fff;
+
+  & > span {
+    line-height: 19px;
+    vertical-align: top;
+    color: #333;
+    font-size: 12px;
+  }
+`;
+
+const Rating = styled(Rate)`
+  font-size: 12px !important;
+
+  & li {
+    margin-right: 4px !important;
+  }
+  & svg {
+    width: 12px;
+    height: 12px;
+  }
+`;
+
+const SubInfoText = styled.span<{ isOriginalPrice: boolean }>`
+  color: #888;
+  font-size: 11px;
+  ${({ isOriginalPrice }) =>
+    isOriginalPrice &&
+    css`
+      text-decoration: line-through;
+    `}
+`;
