@@ -5,7 +5,6 @@ import PaymentInfo from '../../src/components/PaymentInfo';
 import { orderSheetType } from '../../src/types/order';
 import { EMAIL, PASSWORD } from '../../src/constants/login';
 import styled from '@emotion/styled';
-import { parseCookie } from '../../src/utils';
 
 export default function CheckoutPage({
   orderSheet,
@@ -27,16 +26,11 @@ export default function CheckoutPage({
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  let token = parseCookie(context.req.headers.cookie, 'accessToken');
-
-  if (!token) {
-    const { access } = await AuthService.login(EMAIL, PASSWORD);
-    context.res.setHeader('Set-Cookie', [`accessToken=${access}`]);
-    token = access;
-  }
+  const { access } = await AuthService.login(EMAIL, PASSWORD);
+  context.res.setHeader('Set-Cookie', [`accessToken=${access}`]);
 
   const { id } = context.query;
-  const data = await CheckoutService.getOrderSheet(id as string, token);
+  const data = await CheckoutService.getOrderSheet(id as string, access);
 
   return { props: { orderSheet: data } };
 };
