@@ -1,8 +1,8 @@
-import React from "react";
-import { queryType } from "../types/product.types";
-import { useGetProductList } from "../quries.ts/product";
-import Product from "./Product";
-import styled from "@emotion/styled";
+import React from 'react';
+import { queryType } from '../types/product.types';
+import { useGetProductList } from '../quries.ts/product';
+import Product from './Product';
+import styled from '@emotion/styled';
 
 const Container = styled.div`
   display: grid;
@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const ProductList = ({ offset, limit, sorter }: queryType) => {
-  const { data } = useGetProductList({ offset, limit, sorter });
+  const { data, isLoading } = useGetProductList({ offset, limit, sorter });
 
   return (
     <Container>

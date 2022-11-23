@@ -1,11 +1,11 @@
-import { useQuery } from "react-query";
-import { productType, queryType } from "../types/product.types";
-import { request } from "../utils/axios";
+import { useQuery } from 'react-query';
+import { productType, queryType } from '../types/product.types';
+import { request } from '../utils/axios';
 
 const getProductList = async ({ offset, limit, sorter }: queryType) => {
   const { data } = await request({
     url: `/products?offset=${offset}&limit=${limit}&sorter=${sorter}`,
-    method: "get",
+    method: 'get',
   });
 
   return data;
