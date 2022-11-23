@@ -1,38 +1,25 @@
-import {
-  QueryKey,
-  QueryFunction,
-  UseQueryOptions,
-  useQuery,
-  useMutation,
-  UseMutationOptions,
-  UseMutateAsyncFunction,
-} from 'react-query';
+import { useQuery, useMutation } from 'react-query';
+
+type queryOptionType = {
+  refetchInterval?: number;
+  enabled?: boolean;
+};
 
 export const useRequest = (
-  key: QueryKey,
-  request: QueryFunction,
-  option?: UseQueryOptions
-): any => {
+  key: string | string[],
+  request: () => Promise<any>,
+  option?: queryOptionType
+) => {
   return useQuery(key, request, { ...option });
 };
 
-type MutationFunction<
-  TData = unknown,
-  TError = unknown,
-  TVariables = any,
-  TContext = unknown
-> = UseMutateAsyncFunction<TData, TError, TVariables, TContext>;
-
-type MutationOptions<
-  TData = unknown,
-  TError = unknown,
-  TVariables = any,
-  TContext = unknown
-> = UseMutationOptions<TData, TError, TVariables, TContext>;
+type mutateOptionType = {
+  onSuccess?: () => void;
+};
 
 export const useMutate = (
-  mutationFn: MutationFunction,
-  option?: MutationOptions
+  mutationFn: (data: any) => Promise<any>,
+  option?: mutateOptionType
 ): any => {
   return useMutation(mutationFn, { ...option });
 };
