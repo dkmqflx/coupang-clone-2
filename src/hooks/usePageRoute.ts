@@ -5,11 +5,7 @@ const usePageRoute = () => {
   const router = useRouter();
 
   const updatePage = ({ offset, limit, sorter }: queryType) => {
-    router.push(
-      `/products?offset=${offset}&limit=${limit}&sorter=${sorter}`,
-      undefined,
-      { shallow: true }
-    );
+    router.push(`/products?offset=${offset}&limit=${limit}&sorter=${sorter}`);
   };
 
   return {
