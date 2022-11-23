@@ -1,21 +1,24 @@
+import { GetServerSideProps } from 'next';
+import { AuthService } from '../src/services';
+import { EMAIL, PASSWORD } from '../src/constants/login';
 import CartItems from '../src/components/CartItems';
-import NoItemCart from '../src/components/NoItemCart';
-import useLogin from '../src/hooks/useLogin';
 import styled from '@emotion/styled';
 
 export default function CartPage() {
-  const { token } = useLogin();
-
-  if (token === null) return null;
-
   return (
     <Wrapper>
       <Section>
-        {token ? <CartItems></CartItems> : <NoItemCart></NoItemCart>}
+        <CartItems></CartItems>
       </Section>
     </Wrapper>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { access } = await AuthService.login(EMAIL, PASSWORD);
+  context.res.setHeader('Set-Cookie', [`accessToken=${access}`]);
+  return { props: {} };
+};
 
 const Wrapper = styled.div`
   background-color: #f0f0f0;
