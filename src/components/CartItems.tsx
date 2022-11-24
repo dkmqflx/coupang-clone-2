@@ -20,8 +20,6 @@ const CartItems = () => {
     refetch();
   };
 
-  console.log(data);
-
   if (!data) return null;
 
   return (

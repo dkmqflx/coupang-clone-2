@@ -1,57 +1,48 @@
-import axios, { AxiosPromise } from 'axios';
-import cookies from 'js-cookie';
+import axios from 'axios';
 
-export interface httpImpl {
-  get(url: string): AxiosPromise;
-  post(url: string): AxiosPromise;
-  delete(url: string): AxiosPromise;
-  patch(url: string, data: any): AxiosPromise;
-}
-
-class HttpService implements httpImpl {
+class HttpService {
   private request;
-  private accessToken = cookies.get('accessToken');
 
   constructor() {
     this.request = axios.create({
       baseURL: process.env.NEXT_PUBLIC_API_HOST,
       headers: {
-        Authorization: `Bearer ${this.accessToken}`,
         'Content-Type': `application/json`,
       },
     });
   }
 
-  get(url: string) {
-    return this.request({
-      method: 'get',
-      url,
+  get(url: string, accessToken?: string) {
+    return this.request.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   }
 
-  post(url: string) {
-    return this.request({
-      method: 'post',
-      url,
+  post(url: string, data: any | null, accessToken: string) {
+    return this.request.post(url, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   }
 
-  delete(url: string) {
-    return this.request({
-      method: 'delete',
-      url,
+  patch(url: string, data: any | null, accessToken: string) {
+    return this.request.patch(url, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
   }
 
-  patch(url: string, data: any) {
-    return this.request({
-      method: 'patch',
-      url,
-      data: {
-        ...data,
+  delete(url: string, accessToken: string) {
+    return this.request.delete(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
     });
   }
 }
 
-export default new HttpService();
+export default HttpService;

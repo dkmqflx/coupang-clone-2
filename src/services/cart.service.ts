@@ -1,29 +1,37 @@
-import httpService, { httpImpl } from './http.service';
+import Service from './service';
+import cookies from 'js-cookie';
 
-class Cart {
-  constructor(public http: httpImpl) {}
+class Cart extends Service {
+  private static accessToken = cookies.get('accessToken') || '';
 
   async getCartItem() {
-    const { data } = await this.http.get(`/cart`);
+    const { data } = await super.get(`/cart`, Cart.accessToken);
 
     return data;
   }
 
   async resetCartItems() {
-    await this.http.post(`/cart/reset`);
+    await super.post(`/cart/reset`, null, Cart.accessToken);
   }
 
   async deleteCartItem(cartItemId: number) {
-    const { data } = await this.http.delete(`/cart-items/${cartItemId}`);
+    const { data } = await super.delete(
+      `/cart-items/${cartItemId}`,
+      Cart.accessToken
+    );
     return data;
   }
 
   async updateCartItem(cartItemId: number, quantity: number) {
-    const { data } = await this.http.patch(`/cart-items/${cartItemId}`, {
-      quantity,
-    });
+    const { data } = await super.patch(
+      `/cart-items/${cartItemId}`,
+      {
+        quantity,
+      },
+      Cart.accessToken
+    );
     return data;
   }
 }
 
-export default new Cart(httpService);
+export default new Cart();
