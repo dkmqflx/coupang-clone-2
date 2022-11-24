@@ -18,7 +18,10 @@ const useCartItems = (data: cartItemType[], isFetched: boolean) => {
         prevData: checkAddedcartItemType[] | undefined
       ): checkAddedcartItemType[] => {
         if (!prevData) return [];
-        const newItems = prevData.map((item) => ({ ...item, checked: true }));
+        const newItems = prevData.map((item) => ({
+          ...item,
+          checked: target.checked,
+        }));
         return newItems;
       }
     );
