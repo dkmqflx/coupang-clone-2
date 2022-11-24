@@ -3,6 +3,7 @@ import { useQuery, useMutation } from 'react-query';
 type queryOptionType = {
   refetchInterval?: number;
   enabled?: boolean;
+  refetchOnMount?: boolean;
 };
 
 export const useRequest = (

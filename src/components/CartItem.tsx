@@ -8,11 +8,9 @@ import { Tr, Td } from './Common/Table';
 const CartItem = ({
   item,
   handleCheck,
-  type,
 }: {
   item: checkAddedcartItemType;
-  handleCheck: (type: itemType, e: React.ChangeEvent<HTMLInputElement>) => void;
-  type: itemType;
+  handleCheck: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   const {
     id,
@@ -41,7 +39,7 @@ const CartItem = ({
         <input
           type='checkbox'
           id={`${id}`}
-          onChange={(e) => handleCheck(type, e)}
+          onChange={handleCheck}
           checked={checked}
         />
       </Td>

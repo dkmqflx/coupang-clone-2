@@ -4,7 +4,9 @@ import { checkAddedcartItemType } from '../types/cart';
 import { CartService } from '../services';
 
 export const useGetCartItems = () => {
-  return useRequest([`cart-items`], () => CartService.getCartItem());
+  return useRequest([`cart-items`], () => CartService.getCartItem(), {
+    refetchOnMount: false,
+  });
 };
 
 export const useDeleteCartItem = (cartItemId: number) => {
@@ -19,6 +21,8 @@ export const useDeleteCartItem = (cartItemId: number) => {
         ): checkAddedcartItemType[] => {
           if (!prevData) return [];
           const newItems = prevData?.filter((item) => item.id != cartItemId);
+
+          console.log({ newItems });
           return newItems;
         }
       );

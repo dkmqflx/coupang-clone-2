@@ -11,9 +11,9 @@ import { CartService } from '../services';
 import NoItemCart from './NoItemCart';
 
 const CartItems = () => {
-  const { data, refetch, isFetched } = useGetCartItems();
+  const { data, refetch } = useGetCartItems();
   const { rocketItems, sellerItems, handleCheckAll, handleCheck, checkAll } =
-    useCartItems(data, isFetched);
+    useCartItems(data);
 
   const resetItems = async () => {
     await CartService.resetCartItems();
@@ -24,7 +24,7 @@ const CartItems = () => {
 
   return (
     <>
-      <button onClick={resetItems}>reset items</button>
+      <ResetButton onClick={resetItems}>초기화</ResetButton>
       {data.length === 0 ? (
         <NoItemCart></NoItemCart>
       ) : (
@@ -75,7 +75,6 @@ const CartItems = () => {
                       key={item.id}
                       item={item}
                       handleCheck={handleCheck}
-                      type={ROCKET_ITEM}
                     ></CartItem>
                   ))}
                   <CartItemOrderAmount
@@ -92,7 +91,6 @@ const CartItems = () => {
                       key={item.id}
                       item={item}
                       handleCheck={handleCheck}
-                      type={SELLER_ITEM}
                     ></CartItem>
                   ))}
                   <CartItemOrderAmount
@@ -148,4 +146,8 @@ const CheckBoxInput = styled.input`
 const CheckBoxText = styled.span`
   margin-left: 4px;
   position: absolute;
+`;
+
+const ResetButton = styled.button`
+  margin-bottom: 12px;
 `;
