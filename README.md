@@ -1,8 +1,58 @@
-# NUMBLE - 가장 실무에 가까운 쿠팡 클론코딩 4회차
-
-- [4회차 : 상품 목록 페이지 - API 통신 ‘잘' 하기](https://thoughtful-arch-8c2.notion.site/7cade58694b54c6fbee7262128ebb2c1)
+## NUMBLE - 가장 실무에 가까운 쿠팡 클론코딩 4회차
 
 - [배포 URL](https://coupang-clone-stage4.netlify.app/products?offset=0&limit=12&sorter=bestAsc)
+
+<details>
+  <summary style='font-size:20px'>과제보기</summary>
+
+  <div markdown="1">
+
+  <br/>
+
+## API 소개
+
+- 이번 챌린지에서 우리는 상품 리스트 API를 사용할거에요.
+
+- offset,limit 페이지네이션을 지원하며, sorter 파라미터를 통해 데이터를 정렬할 수 있어요.
+
+- sorter 쿼리 파라미터에는 다음 값들이 들어갈 수 있어요.
+
+  - bestAsc: ‘쿠팡 랭킹순'에 사용돼요.
+
+  - salePriceAsc: ‘낮은가격순'에 사용돼요.
+
+  - salePriceDesc: ‘높은가격순'에 사용돼요.
+
+  - saleCountDesc: ‘판매량순'에 사용돼요.
+
+  - latestAsc: ‘최신순'에 사용돼요.
+
+---
+
+## 구현
+
+<img src='./images/image.png'>
+
+- 이번 챌린지에서는 위 스크린샷에서 붉게 표시된 영역을 구현해볼거에요.
+
+- 나머지 영역은 이번 미션의 주제와 무관하거나 동일한 방식으로 대응할 수 있기 때문에 구현하지 않아요!
+
+- 아래 주의사항을 참고하며 구현해보아요.
+
+- 정렬/페이지크기를 변경이 URL에 반영되어야합니다.
+
+- initial render시에 정렬/페이지크기가 변경된 상태의 URL을 읽어 적절히 반영해야합니다.
+
+- 페이지크기는 ‘12개씩 보기', ‘24개씩 보기' 두 가지를 선택할 수 있게끔 구현해주세요.
+
+- 상품 리스트의 데이터 비동기 처리에 React Suspense를 이용해보아요.
+
+- 아래 패키지를 사용해 나만의 fallback 컴포넌트를 구현해보아요!
+
+  - [React Spinners](https://www.davidhu.io/react-spinners/)
+
+    </div>
+  </details>
 
 ---
 
