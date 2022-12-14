@@ -1,6 +1,6 @@
 ## NUMBLE - 가장 실무에 가까운 쿠팡 클론코딩 4회차
 
-- [배포 URL](https://coupang-clone-stage4.netlify.app/products?offset=0&limit=12&sorter=bestAsc)
+[배포 URL](https://coupang-clone-stage4.netlify.app/products?offset=0&limit=12&sorter=bestAsc)
 
 <details>
   <summary style='font-size:20px'>과제보기</summary>
