@@ -1,8 +1,108 @@
-# NUMBLE - 가장 실무에 가까운 쿠팡 클론코딩 5회차
+## NUMBLE - 가장 실무에 가까운 쿠팡 클론코딩 5회차
+
+[배포 URL](https://coupang-clone-stage5.netlify.app/cart)
+
+<details>
+  <summary style='font-size:20px'>과제보기</summary>
+
+  <div markdown="1">
+
+  <br/>
+
+- 이번 챌린지에서는 [쿠팡 장바구니 페이지](https://cart.coupang.com/cartView.pang)를 구현해보겠습니다
+
+- (링크 주소: [https://cart.coupang.com/cartView.pang](https://cart.coupang.com/cartView.pang))
 
 - [챌린지 페이지](https://www.numble.it/84b74183-c72e-4502-91c9-e41fbf0aa7aa)
 
-- [배포 URL](https://coupang-clone-stage5.netlify.app/cart)
+## API 목록
+
+1. 카트 조회
+
+   - 경로: /api/cart
+
+   - 보유한 cart-item 목록을 반환합니다.
+
+   - HTTP METHOD: GET
+
+   - Bearer Token 필요
+
+2. 카트 초기화
+
+   - 경로: /api/cart/reset
+
+   - 보유한 cart-item을 모두 삭제하고, 임의로 5개를 생성합니다. (개발 편의를 위해 제공됩니다)
+
+   - HTTP METHOD: POST
+
+   - Bearer Token 필요
+
+3. 카트아이템 업데이트
+
+   - 수량 변경 시 이 API를 사용해주시면 됩니다.
+
+   - 경로: /api/cart-items/[cartItemId]
+
+   - HTTP METHOD: PATCH
+
+   - Bearer Token 필요
+
+   - Request body (example)
+     ```json
+     {
+       "quantity": 3
+     }
+     ```
+
+4. 카트아이템 삭제
+
+   입력된 ID의 카트아이템을 삭제합니다.
+
+   - 경로: /api/cart-items/[cartItemId]
+
+   - HTTP METHOD: DELETE
+
+   - Bearer Token 필요
+
+---
+
+## 구현
+
+<img src='images/image1.png'>
+
+- 이번 챌린지에서는 위 스크린샷에서 붉게 표시된 영역을 구현해볼거에요.
+
+- ‘품절/판매종료상품 전체삭제', ‘묶음배송 추가' 기능은 무시해주세요
+
+<br/>
+
+<img src='images/image2.png' width='200px'>
+
+- 수량 변경 UI는 쿠팡의 selector대신 위 스크린샷처럼 구현해주세요
+
+<br/>
+
+- 아래는 다양한 상황에서의 UI 예시입니다.
+
+- 로켓배송 무료배송 기준이 충족되지 않은 상황 예시입니다.
+
+  <img src='images/image3.png'>
+
+- 장바구니가 비어있는 상황 예시입니다.
+
+  <img src='images/image4.png'>
+
+- 아래 주의사항을 참고하며 구현해보아요.
+
+  - 로켓배송의 무료배송 기준금액은 19,800원이에요
+
+  - 모든 로켓배송 상품은 함께 배송된다고 생각해주세요
+
+  - 모든 판매자배송 상품은 따로 배송된다고 생각해주세요
+
+  </div>
+
+</details>
 
 ---
 
