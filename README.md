@@ -4,8 +4,8 @@
 
 - 챌린지를 통해 필요한 기능을 구현하는 것뿐 아니라 모듈 설계 및 구현, 컴포넌트 분리, 상태 관리 및 API 통신과 같이 프론트엔드 개발에 필요한 지식들을 더 깊게 이해할 수 있었습니다.
 
-- [4회차](https://github.com/dkmqflx/coupang-clone-1/tree/stage4)
+- [4회차](https://github.com/dkmqflx/coupang-clone-2/tree/stage4)
 
-- [5회차](https://github.com/dkmqflx/coupang-clone-1/tree/stage5)
+- [5회차](https://github.com/dkmqflx/coupang-clone-2/tree/stage5)
 
-- [6회차](https://github.com/dkmqflx/coupang-clone-1/tree/stage6)
+- [6회차](https://github.com/dkmqflx/coupang-clone-2/tree/stage6)
