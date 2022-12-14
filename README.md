@@ -1,6 +1,89 @@
-- [챌린지 페이지](https://thoughtful-arch-8c2.notion.site/b5037b8c2e1d4c81a42f48f2a00adba6)
+## NUMBLE - 가장 실무에 가까운 쿠팡 클론코딩 6회차
 
-- [배포 URL](https://iridescent-tarsier-a2f6fa.netlify.app/checkout/1)
+[배포 URL](https://iridescent-tarsier-a2f6fa.netlify.app/checkout/1)
+
+<details>
+  <summary style='font-size:20px'>과제보기</summary>
+
+  <div markdown="1">
+
+  <br/>
+
+## API 목록
+
+1. 주문서 조회
+
+   - 해당 id의 주문서를 반환합니다. id는 임의의 numeric string을 넣어주시면됩니다.
+
+   - 경로: /api/ordersheet/[id]
+
+   - HTTP METHOD: GET
+
+   - Bearer Token 필요
+
+2. 배송지 목록
+
+   - 배송지 선택 팝업에서 사용해주시면 됩니다. 보유중인 배송지 데이터를 배열로 반환합니다.
+
+   - 경로: /api/address
+
+   - HTTP METHOD: GET
+
+   - Bearer Token 필요
+
+3. 주문 완료
+
+   - 주문서 페이지에서 설정한 정보들을 통해 적절히 호출해보세요
+
+   - 경로: /api/order/complete
+
+   - HTTP METHOD: POST
+
+   - Bearer Token 필요
+
+   - request body
+     ```tsx
+     {
+     	ordersheetId: number;
+     	addressId: number;
+     	usedCash: number;
+     	payMethod: 'mobile' | 'coupaymoney';
+     	/** 'mobile' 결제에서 필수입니다. */
+     	mobileCarrier?: 'skt' | 'kt' | 'hello' | 'kct';
+     	/** 'coupaymoney' 결제에서 필수입니다. */
+     	usedCoupaymoney?: number;
+     }
+     ```
+
+---
+
+## 구현
+
+<img src='images/image1.png'>
+
+- 배송지 선택 팝업 입니다.
+
+  <img src='images/image2.png'>
+
+<img src='images/image3.png'>
+
+- 이번 챌린지에서는 위 스크린샷에서 붉게 표시된 영역을 구현해볼거에요.
+
+- 아래 주의사항을 참고하며 구현해보아요.
+
+  - 구매자정보의 휴대폰 번호 변경 기능은 존재하지 않는다고 생각해주세요.
+
+  - 받는사람정보의 배송요청사항 정보는 존재하지 않는다고 생각해주세요.
+
+  - 배송지 선택 팝업은 수정, 삭제를 할 수 없고 선택만 할 수 있다고 생각해주세요.
+
+  - 적용 가능한 할인 쿠폰은 항상 없다고 생각해주세요.
+
+  - 결제정보의 결제방법은 쿠페이 머니, 휴대폰만 구현해주세요.
+
+  </div>
+
+</details>
 
 ---
 
