@@ -1,5 +1,4 @@
 import { useQueryClient } from 'react-query';
-import { AxiosError } from 'axios';
 import { useRequest, useMutate } from './../hooks/useRequest';
 import { checkAddedcartItemType } from '../types/cart';
 import { CartService } from '../services';
@@ -13,40 +12,33 @@ export const useGetCartItems = () => {
 export const useDeleteCartItem = (cartItemId: number) => {
   const queryClient = useQueryClient();
 
-  return useMutate<checkAddedcartItemType[], AxiosError>(
-    () => CartService.deleteCartItem(cartItemId),
-    {
-      onSuccess: () => {
-        queryClient.setQueryData(
-          [`cart-items`],
-          (
-            prevData: checkAddedcartItemType[] | undefined
-          ): checkAddedcartItemType[] => {
-            if (!prevData) return [];
-            const newItems = prevData?.filter((item) => item.id != cartItemId);
+  return useMutate<boolean>(() => CartService.deleteCartItem(cartItemId), {
+    onSuccess: () => {
+      queryClient.setQueryData(
+        [`cart-items`],
+        (
+          prevData: checkAddedcartItemType[] | undefined
+        ): checkAddedcartItemType[] => {
+          if (!prevData) return [];
+          const newItems = prevData?.filter((item) => item.id != cartItemId);
 
-            return newItems;
-          }
-        );
-      },
-      onError: () =>
-        alert('선택한 상품을 삭제하는데 실패했습니다. 다시 시도해주세요.'),
-    }
-  );
+          return newItems;
+        }
+      );
+    },
+    onError: () =>
+      alert('선택한 상품을 삭제하는데 실패했습니다. 다시 시도해주세요.'),
+  });
 };
 
 export const useUpdateCartItem = (cartItemId: number) => {
   const queryClient = useQueryClient();
 
-  return useMutate<checkAddedcartItemType[], AxiosError, number>(
+  return useMutate<boolean, number>(
     (quantity: number) => CartService.updateCartItem(cartItemId, quantity),
 
     {
-      onMutate: async (quantity: number) => {
-        await queryClient.cancelQueries({ queryKey: [`cart-items`] });
-
-        const previousData = queryClient.getQueryData([`cart-items`]);
-
+      onSuccess: (_data, quantity: number) => {
         queryClient.setQueryData(
           [`cart-items`],
           (
@@ -59,17 +51,12 @@ export const useUpdateCartItem = (cartItemId: number) => {
             return newItems;
           }
         );
-
-        return { previousData };
       },
 
-      onError: (_err, _newTodo, context) => {
-        queryClient.setQueryData([`cart-items`], context?.previousData);
-
-        return alert(
+      onError: () =>
+        alert(
           '선택한 상품의 수량을 변경하는데 실패했습니다. 다시 시도해주세요.'
-        );
-      },
+        ),
     }
   );
 };

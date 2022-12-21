@@ -14,19 +14,14 @@ export const useRequest = <TData>(
   return useQuery(key, request, { ...option });
 };
 
-type mutateOptionType<TData, TError, TVariables> = {
-  onSuccess?: () => void;
-  onError?: (
-    error?: TError,
-    variables?: TVariables,
-    context?: { previousData: TData }
-  ) => void;
-  onMutate?: (variables: TVariables) => Promise<TData | void> | any | void;
+type mutateOptionType<TData, TVariables> = {
+  onSuccess?: (data: TData, varialbes: TVariables) => void;
+  onError?: () => void;
 };
 
-export const useMutate = <TData, TError, TVariables = void>(
+export const useMutate = <TData, TVariables = void>(
   mutationFn: (data: TVariables) => Promise<TData>,
-  option?: mutateOptionType<TData, TError, TVariables>
+  option?: mutateOptionType<TData, TVariables>
 ) => {
   return useMutation(mutationFn, { ...option });
 };
