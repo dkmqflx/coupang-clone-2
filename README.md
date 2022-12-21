@@ -1,62 +1,58 @@
-## NUMBLE - 가장 실무에 가까운 쿠팡 클론코딩 4회차
+## 배포
 
 [배포 URL](https://coupang-clone-stage4.netlify.app/products?offset=0&limit=12&sorter=bestAsc)
 
-<details>
-  <summary style='font-size:20px'>과제보기</summary>
+<br/>
 
-  <div markdown="1">
-
-  <br/>
-
-## API 소개
-
-- 이번 챌린지에서 우리는 상품 리스트 API를 사용할거에요.
-
-- offset,limit 페이지네이션을 지원하며, sorter 파라미터를 통해 데이터를 정렬할 수 있어요.
-
-- sorter 쿼리 파라미터에는 다음 값들이 들어갈 수 있어요.
-
-  - bestAsc: ‘쿠팡 랭킹순'에 사용돼요.
-
-  - salePriceAsc: ‘낮은가격순'에 사용돼요.
-
-  - salePriceDesc: ‘높은가격순'에 사용돼요.
-
-  - saleCountDesc: ‘판매량순'에 사용돼요.
-
-  - latestAsc: ‘최신순'에 사용돼요.
-
----
-
-## 구현
+## 구현 과제
 
 <img src='./images/image.png'>
 
 - 이번 챌린지에서는 위 스크린샷에서 붉게 표시된 영역을 구현해볼거에요.
 
-- 나머지 영역은 이번 미션의 주제와 무관하거나 동일한 방식으로 대응할 수 있기 때문에 구현하지 않아요!
+- 나머지 영역은 이번 미션의 주제와 무관하거나 동일한 방식으로 대응할 수 있기 때문에 구현하지 않습니다.
 
 - 아래 주의사항을 참고하며 구현해보아요.
 
-- 정렬/페이지크기를 변경이 URL에 반영되어야합니다.
+  - 정렬/페이지크기를 변경이 URL에 반영되어야합니다.
 
-- initial render시에 정렬/페이지크기가 변경된 상태의 URL을 읽어 적절히 반영해야합니다.
+  - initial render시에 정렬/페이지크기가 변경된 상태의 URL을 읽어 적절히 반영해야합니다.
 
-- 페이지크기는 ‘12개씩 보기', ‘24개씩 보기' 두 가지를 선택할 수 있게끔 구현해주세요.
+  - 페이지크기는 ‘12개씩 보기', ‘24개씩 보기' 두 가지를 선택할 수 있게끔 구현해주세요.
 
-- 상품 리스트의 데이터 비동기 처리에 React Suspense를 이용해보아요.
+  - 상품 리스트의 데이터 비동기 처리에 React Suspense를 이용해보아요.
 
-- 아래 패키지를 사용해 나만의 fallback 컴포넌트를 구현해보아요!
+  - 아래 패키지를 사용해 나만의 fallback 컴포넌트를 구현해주세요.
 
-  - [React Spinners](https://www.davidhu.io/react-spinners/)
-
-    </div>
-  </details>
+    - [React Spinners](https://www.davidhu.io/react-spinners/)
 
 ---
 
-## Suspense
+### API 소개
+
+- 경로 : /products?offset=[offset]&limit=[limit]&sorter=[sorter]
+
+- offset,limit 페이지네이션을 지원하며, sorter 파라미터를 통해 데이터를 정렬할 수 있습니다.
+
+- sorter 쿼리 파라미터에는 다음 값들이 들어갈 수 있습니다.
+
+  - bestAsc: ‘쿠팡 랭킹순'
+
+  - salePriceAsc: ‘낮은가격순'
+
+  - salePriceDesc: ‘높은가격순'
+
+  - saleCountDesc: ‘판매량순'
+
+  - latestAsc: ‘최신순'
+
+---
+
+<br/>
+
+## 구현 결과
+
+### Suspense
 
 - 상품 목록을 보여주는 ProductList 컴포넌트 같은 경우 Suspense를 적용하기 위해서 next.js의 [`Dynamic import`](https://nextjs.org/docs/advanced-features/dynamic-import)를 사용했습니다.
 
@@ -72,17 +68,13 @@ const ProductList = dynamic(() => import('../src/components/ProductList'), {
 });
 
 export default function ProductListPage() {
-  const route = useRouter();
-
-  const { offset = '0', limit = '12', sorter = 'bestAsc' } = route.query;
-
   return (
     <Wrapper>
-      <ProductMenu offset={offset} limit={limit} sorter={sorter} />
+      <ProductMenu />
       <Suspense fallback={<Spinner />}>
-        <ProductList offset={offset} limit={limit} sorter={sorter} />
+        <ProductList />
       </Suspense>
-      <ProductPagination offset={offset} limit={limit} sorter={sorter} />
+      <ProductPagination />
     </Wrapper>
   );
 }
@@ -93,11 +85,19 @@ export default function ProductListPage() {
 
 <br/>
 
-## Pagination
+### usePageRoute
 
-- router 관련 기능들이 각 컴포넌트들에 있다면 분포되어있어서 결합도가 높다는 단점이 생깁니다.
+- 구현 해야하는 주요 기능 중 하나는 사용자가 선택한 기준에 따라 상품이 정렬되도록 하는 것으로 크게 아래와 같은 케이스로 나눌 수 있습니다.
 
-- 따라서 페이지 이동을 위한 router 관련 코드들을 모아서 응집도를 높이고 결합도를 낮추기 위해서 page 이동을 위한 Custom hook을 정의해주었습니다
+  - ‘쿠팡 랭킹순', ‘낮은가격순', ‘높은가격순', ‘판매량순', ‘최신순'
+
+  - 12개씩 보기, 24개씩 보기
+
+  - Pagination
+
+- 사용자가 정렬 기준을 선택할 때 마다 url이 변경되고, 변경된 query 값을 이용해서 데이터를 새롭게 불러와서 정렬해주는 방식으로 처리해주었습니다.
+
+- 따라서 아래처럼 페이지 이동과 관련된 Custom hook을 정의해준 다음 url을 변경해야 하는 컴포넌트에서 사용했습니다.
 
 ```jsx
 // hooks/usePageRoute
@@ -107,6 +107,7 @@ import { queryType } from '../types/product.types';
 
 const usePageRoute = () => {
   const router = useRouter();
+  const { offset = '0', limit = '12', sorter = 'bestAsc' } = router.query;
 
   const updatePage = ({ offset, limit, sorter }: queryType) => {
     router.push(`/products?offset=${offset}&limit=${limit}&sorter=${sorter}`);
@@ -114,6 +115,9 @@ const usePageRoute = () => {
 
   return {
     updatePage,
+    offset,
+    limit,
+    sorter,
   };
 };
 
@@ -122,15 +126,15 @@ export default usePageRoute;
 
 <br/>
 
-- 이렇게 정의한 Custom hook을 page를 이동해서 URL을 변경해야 하는 컴포넌트에서 사용했습니다.
+- 아래는 Pagination을 위한 컴포넌트로 사용자가 선택한 페이지에 따라 변경된 offset을 전달해서 url을 변경해 주었습니다.
 
 ```jsx
 // components/ProductPagination
 
 ...
 
-const ProductPagination = ({ offset, limit, sorter }: queryType) => {
-  const { updatePage } = usePageRoute();
+const ProductPagination = () => {
+  const { updatePage, offset, limit, sorter } = usePageRoute();
 
   const handleChangeOffset = (pagination: number) => {
     const offset = `${pagination === 1 ? 0 : (pagination - 1) * Number(limit)}`;
