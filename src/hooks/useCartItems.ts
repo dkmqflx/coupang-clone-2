@@ -17,6 +17,7 @@ const useCartItems = (data: cartItemType[]) => {
       setCheckAll(target.checked);
 
       const checkAllItems = items?.map((item) => `${item.id}`);
+
       setCheckedItems(checkAllItems);
     } else {
       setCheckAll(target.checked);
@@ -31,7 +32,10 @@ const useCartItems = (data: cartItemType[]) => {
     if (checkedItems.includes(target.id)) {
       const filteredItems = checkedItems.filter((id) => id !== target.id);
       setCheckedItems(filteredItems);
-      setCheckAll(false);
+
+      if (checkAll) {
+        setCheckAll(false);
+      }
     } else {
       const newItems = [...checkedItems, target.id];
       setCheckedItems(newItems);
