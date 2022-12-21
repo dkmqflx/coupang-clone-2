@@ -1,15 +1,14 @@
-import { useQueryClient } from 'react-query';
 import { useState, useEffect } from 'react';
 import { ROCKET_ITEM, SELLER_ITEM } from '../constants/cart';
-import { cartItemType, checkAddedcartItemType } from '../types/cart';
+import { cartItemType } from '../types/cart';
 import { filterItemsByType } from '../utils/cart';
 
 const useCartItems = (data: cartItemType[]) => {
   const [checkAll, setCheckAll] = useState(false);
-  const [rocketItems, setRocketItems] = useState<checkAddedcartItemType[]>([]);
-  const [sellerItems, setSellerItems] = useState<checkAddedcartItemType[]>([]);
-  const [items, setItems] = useState<checkAddedcartItemType[] | undefined>();
-  const queryClient = useQueryClient();
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [rocketItems, setRocketItems] = useState<cartItemType[]>([]);
+  const [sellerItems, setSellerItems] = useState<cartItemType[]>([]);
+  const [items, setItems] = useState<cartItemType[]>([]);
 
   const handleCheckAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -17,57 +16,46 @@ const useCartItems = (data: cartItemType[]) => {
     if (target.checked) {
       setCheckAll(target.checked);
 
-      const checkAllItems = items?.map((item) =>
-        item.checked ? item : { ...item, checked: !item.checked }
-      );
-      queryClient.setQueryData([`cart-items`], checkAllItems);
-      setItems(checkAllItems);
+      const checkAllItems = items?.map((item) => `${item.id}`);
+      setCheckedItems(checkAllItems);
     } else {
       setCheckAll(target.checked);
 
-      const uncheckAllItems = items?.map((item) =>
-        !item.checked ? item : { ...item, checked: !item.checked }
-      );
-
-      queryClient.setQueryData([`cart-items`], uncheckAllItems);
-      setItems(uncheckAllItems);
+      setCheckedItems([]);
     }
   };
 
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
 
-    const checkedNewItems = items?.map((item) =>
-      `${item.id}` === target.id ? { ...item, checked: !item.checked } : item
-    );
-    queryClient.setQueryData([`cart-items`], checkedNewItems);
-    setItems(checkedNewItems);
-    setCheckAll(checkedNewItems?.every((item) => item.checked) ? true : false);
+    if (checkedItems.includes(target.id)) {
+      const filteredItems = checkedItems.filter((id) => id !== target.id);
+      setCheckedItems(filteredItems);
+      setCheckAll(false);
+    } else {
+      const newItems = [...checkedItems, target.id];
+      setCheckedItems(newItems);
+
+      if (newItems.length === items.length) {
+        setCheckAll(true);
+      }
+    }
+  };
+
+  const resetCheckedState = () => {
+    setCheckAll(false);
+    setCheckedItems([]);
   };
 
   useEffect(() => {
     if (!data) return;
 
-    if (!items) {
-      const checkAddedItems = data.map((item) => ({ ...item, checked: false }));
-      setItems(checkAddedItems);
-      queryClient.setQueryData([`cart-items`], checkAddedItems);
-    } else {
-      const currentData = queryClient.getQueryData<checkAddedcartItemType[]>([
-        `cart-items`,
-      ])!;
+    setItems(data);
 
-      const rocketItems = filterItemsByType(currentData, ROCKET_ITEM);
-      setRocketItems(rocketItems);
-      const sellerItems = filterItemsByType(currentData, SELLER_ITEM);
-      setSellerItems(sellerItems);
-
-      setItems(currentData);
-
-      if (currentData.length === 0) {
-        setCheckAll(false);
-      }
-    }
+    const rocketItems = filterItemsByType(data, ROCKET_ITEM);
+    setRocketItems(rocketItems);
+    const sellerItems = filterItemsByType(data, SELLER_ITEM);
+    setSellerItems(sellerItems);
   }, [data]);
 
   return {
@@ -76,6 +64,8 @@ const useCartItems = (data: cartItemType[]) => {
     handleCheckAll,
     handleCheck,
     checkAll,
+    checkedItems,
+    resetCheckedState,
   };
 };
 

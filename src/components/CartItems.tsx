@@ -1,5 +1,5 @@
 import { useGetCartItems } from '../quries/cart';
-import { checkAddedcartItemType } from '../types/cart';
+import { cartItemType } from '../types/cart';
 import { ROCKET_ITEM, SELLER_ITEM } from './../constants/cart';
 import useCartItems from '../hooks/useCartItems';
 import CartItemOrderAmount from './CartItemOrderAmount';
@@ -12,11 +12,19 @@ import NoItemCart from './NoItemCart';
 
 const CartItems = () => {
   const { data, refetch } = useGetCartItems();
-  const { rocketItems, sellerItems, handleCheckAll, handleCheck, checkAll } =
-    useCartItems(data);
+  const {
+    rocketItems,
+    sellerItems,
+    handleCheckAll,
+    handleCheck,
+    checkAll,
+    checkedItems,
+    resetCheckedState,
+  } = useCartItems(data);
 
   const resetItems = async () => {
     await CartService.resetCartItems();
+    resetCheckedState();
     refetch();
   };
 
@@ -70,32 +78,36 @@ const CartItems = () => {
 
               {rocketItems.length > 0 && (
                 <>
-                  {rocketItems.map((item: checkAddedcartItemType) => (
+                  {rocketItems.map((item: cartItemType) => (
                     <CartItem
                       key={item.id}
                       item={item}
                       handleCheck={handleCheck}
+                      checked={checkedItems.includes(`${item.id}`)}
                     ></CartItem>
                   ))}
                   <CartItemOrderAmount
                     type={ROCKET_ITEM}
                     items={rocketItems}
+                    checkedItems={checkedItems}
                   ></CartItemOrderAmount>
                 </>
               )}
 
               {sellerItems.length > 0 && (
                 <>
-                  {sellerItems.map((item: checkAddedcartItemType) => (
+                  {sellerItems.map((item: cartItemType) => (
                     <CartItem
                       key={item.id}
                       item={item}
                       handleCheck={handleCheck}
+                      checked={checkedItems.includes(`${item.id}`)}
                     ></CartItem>
                   ))}
                   <CartItemOrderAmount
                     type={SELLER_ITEM}
                     items={sellerItems}
+                    checkedItems={checkedItems}
                   ></CartItemOrderAmount>
                 </>
               )}
@@ -105,6 +117,7 @@ const CartItems = () => {
           <CartItemOrderTotalPrice
             rocketItems={rocketItems}
             sellerItems={sellerItems}
+            checkedItems={checkedItems}
           ></CartItemOrderTotalPrice>
         </>
       )}

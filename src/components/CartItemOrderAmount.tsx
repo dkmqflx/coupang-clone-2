@@ -1,6 +1,6 @@
 import React from 'react';
 import { ROCKET_ITEM } from '../constants/cart';
-import { checkAddedcartItemType, itemType } from '../types/cart';
+import { itemType, cartItemType } from '../types/cart';
 import { getTotalPrice, getShippingFee } from '../utils/cart';
 import styled from '@emotion/styled';
 
@@ -9,12 +9,14 @@ const ROCKET_MIN_TOTAL = 19800;
 const CartItemOrderAmount = ({
   items,
   type,
+  checkedItems,
 }: {
-  items: checkAddedcartItemType[];
+  items: cartItemType[];
   type: itemType;
+  checkedItems: string[];
 }) => {
-  const totalPrice = getTotalPrice(items);
-  const shippingFee = getShippingFee(items);
+  const totalPrice = getTotalPrice(items, checkedItems);
+  const shippingFee = getShippingFee(items, checkedItems);
 
   return (
     <tr>

@@ -1,12 +1,10 @@
 import { useQueryClient } from 'react-query';
 import { useRequest, useMutate } from './../hooks/useRequest';
-import { checkAddedcartItemType } from '../types/cart';
+import { cartItemType } from '../types/cart';
 import { CartService } from '../services';
 
 export const useGetCartItems = () => {
-  return useRequest([`cart-items`], () => CartService.getCartItem(), {
-    refetchOnMount: false,
-  });
+  return useRequest([`cart-items`], () => CartService.getCartItem());
 };
 
 export const useDeleteCartItem = (cartItemId: number) => {
@@ -16,9 +14,7 @@ export const useDeleteCartItem = (cartItemId: number) => {
     onSuccess: () => {
       queryClient.setQueryData(
         [`cart-items`],
-        (
-          prevData: checkAddedcartItemType[] | undefined
-        ): checkAddedcartItemType[] => {
+        (prevData: cartItemType[] | undefined): cartItemType[] => {
           if (!prevData) return [];
           const newItems = prevData?.filter((item) => item.id != cartItemId);
 
@@ -41,9 +37,7 @@ export const useUpdateCartItem = (cartItemId: number) => {
       onSuccess: (_data, quantity: number) => {
         queryClient.setQueryData(
           [`cart-items`],
-          (
-            prevData: checkAddedcartItemType[] | undefined
-          ): checkAddedcartItemType[] => {
+          (prevData: cartItemType[] | undefined): cartItemType[] => {
             if (!prevData) return [];
             const newItems = prevData.map((item) =>
               item.id === cartItemId ? { ...item, quantity } : item

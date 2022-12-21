@@ -1,17 +1,22 @@
-import { checkAddedcartItemType } from '../types/cart';
+import { cartItemType } from '../types/cart';
 import { getTotalPrice, getShippingFee } from '../utils/cart';
 import styled from '@emotion/styled';
 
 const CartItemOrderTotalPrice = ({
   rocketItems,
   sellerItems,
+  checkedItems,
 }: {
-  rocketItems: checkAddedcartItemType[];
-  sellerItems: checkAddedcartItemType[];
+  rocketItems: cartItemType[];
+  sellerItems: cartItemType[];
+  checkedItems: string[];
 }) => {
-  const totalPrice = getTotalPrice(rocketItems) + getTotalPrice(sellerItems);
+  const totalPrice =
+    getTotalPrice(rocketItems, checkedItems) +
+    getTotalPrice(sellerItems, checkedItems);
   const totalShippingFee =
-    getShippingFee(rocketItems) + getShippingFee(sellerItems);
+    getShippingFee(rocketItems, checkedItems) +
+    getShippingFee(sellerItems, checkedItems);
 
   return (
     <Wrapper>

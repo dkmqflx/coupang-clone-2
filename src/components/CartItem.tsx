@@ -1,16 +1,18 @@
 import Image from 'next/image';
 import { debounce } from 'lodash';
 import { useDeleteCartItem, useUpdateCartItem } from '../quries/cart';
-import { checkAddedcartItemType, itemType } from '../types/cart';
+import { cartItemType } from '../types/cart';
 import styled from '@emotion/styled';
 import { Tr, Td } from './Common/Table';
 
 const CartItem = ({
   item,
   handleCheck,
+  checked,
 }: {
-  item: checkAddedcartItemType;
+  item: cartItemType;
   handleCheck: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  checked: boolean;
 }) => {
   const {
     id,
@@ -23,7 +25,6 @@ const CartItem = ({
       maxPoint,
     },
     quantity,
-    checked,
   } = item;
 
   const { mutate: deleteMutate } = useDeleteCartItem(id);
@@ -32,6 +33,10 @@ const CartItem = ({
   const handleUpdateQuantity = debounce((quantity: string) => {
     updateMutate(Number(quantity));
   }, 500);
+
+  const handleDelete = () => {
+    deleteMutate();
+  };
 
   return (
     <Tr>
@@ -62,7 +67,7 @@ const CartItem = ({
               value={quantity}
               onChange={(e) => handleUpdateQuantity(e.target.value)}
             ></QuantityInput>
-            <DeleteButton onClick={deleteMutate}>x</DeleteButton>
+            <DeleteButton onClick={handleDelete}>x</DeleteButton>
           </ItemInfoWrapper>
         </Delivery>
 

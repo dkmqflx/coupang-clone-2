@@ -25,6 +25,4 @@ export type cartItemType = {
   quantity: number;
 };
 
-export type checkAddedcartItemType = cartItemType & { checked: boolean };
-
 export type itemType = typeof ROCKET_ITEM | typeof SELLER_ITEM;
