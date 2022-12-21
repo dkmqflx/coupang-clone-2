@@ -1,32 +1,32 @@
 import { useQuery, useMutation } from 'react-query';
 
-type queryOptionType = {
+type requestOptionType = {
   refetchInterval?: number;
   enabled?: boolean;
   refetchOnMount?: boolean;
 };
 
-export const useRequest = (
+export const useRequest = <TData>(
   key: string | string[],
-  request: () => Promise<any>,
-  option?: queryOptionType
+  request: () => TData | Promise<TData>,
+  option?: requestOptionType
 ) => {
   return useQuery(key, request, { ...option });
 };
 
-type mutateOptionType = {
+type mutateOptionType<TData, TError, TVariables> = {
   onSuccess?: () => void;
   onError?: (
-    error: unknown,
-    variables: unknown,
-    context: unknown | undefined
-  ) => Promise<unknown> | void;
-  onMutate?: (variables: any) => Promise<any | void> | any | void;
+    error?: TError,
+    variables?: TVariables,
+    context?: { previousData: TData }
+  ) => void;
+  onMutate?: (variables: TVariables) => Promise<TData | void> | any | void;
 };
 
-export const useMutate = (
-  mutationFn: (data: any) => Promise<any>,
-  option?: mutateOptionType
-): any => {
+export const useMutate = <TData, TError, TVariables = void>(
+  mutationFn: (data: TVariables) => Promise<TData>,
+  option?: mutateOptionType<TData, TError, TVariables>
+) => {
   return useMutation(mutationFn, { ...option });
 };
