@@ -1,13 +1,12 @@
 import React from 'react';
-import { queryType } from '../types/product.types';
 import { Pagination } from 'antd';
 import { SHOW_TWENTY_FOUR } from '../constants';
 import usePageRoute from '../hooks/usePageRoute';
 
 const DEFAULT_TOTAL = 38;
 
-const ProductPagination = ({ offset, limit, sorter }: queryType) => {
-  const { updatePage } = usePageRoute();
+const ProductPagination = () => {
+  const { updatePage, offset, limit, sorter } = usePageRoute();
 
   const handleChangeOffset = (pagination: number) => {
     const offset = `${pagination === 1 ? 0 : (pagination - 1) * Number(limit)}`;

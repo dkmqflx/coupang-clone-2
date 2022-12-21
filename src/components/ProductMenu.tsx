@@ -1,6 +1,5 @@
 import React from 'react';
 import { getOffset } from '../utils/product';
-import { queryType } from '../types/product.types';
 import usePageRoute from '../hooks/usePageRoute';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
@@ -8,19 +7,8 @@ import { Select, Space, Row } from 'antd';
 
 const { Option } = Select;
 
-const MenuSortText = styled.span<{ select: boolean }>`
-  cursor: pointer;
-
-  ${({ select }) =>
-    select &&
-    css`
-      color: #0073e9;
-      font-weight: bold;
-    `}
-`;
-
-const ProductMenu = ({ offset, limit, sorter }: queryType) => {
-  const { updatePage } = usePageRoute();
+const ProductMenu = () => {
+  const { updatePage, offset, limit, sorter } = usePageRoute();
 
   return (
     <Row justify='space-between'>
@@ -80,3 +68,14 @@ const ProductMenu = ({ offset, limit, sorter }: queryType) => {
 };
 
 export default ProductMenu;
+
+const MenuSortText = styled.span<{ select: boolean }>`
+  cursor: pointer;
+
+  ${({ select }) =>
+    select &&
+    css`
+      color: #0073e9;
+      font-weight: bold;
+    `}
+`;

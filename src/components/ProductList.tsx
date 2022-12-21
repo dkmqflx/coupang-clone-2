@@ -1,17 +1,12 @@
 import React from 'react';
-import { queryType, productType } from '../types/product.types';
+import { productType } from '../types/product.types';
 import { useGetProductList } from '../quries.ts/product';
+import usePageRoute from '../hooks/usePageRoute';
 import Product from './Product';
 import styled from '@emotion/styled';
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 230px);
-  gap: 20px;
-  margin: 20px 0;
-`;
-
-const ProductList = ({ offset, limit, sorter }: queryType) => {
+const ProductList = () => {
+  const { offset, limit, sorter } = usePageRoute();
   const { data } = useGetProductList({ offset, limit, sorter });
 
   return (
@@ -24,3 +19,10 @@ const ProductList = ({ offset, limit, sorter }: queryType) => {
 };
 
 export default ProductList;
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 230px);
+  gap: 20px;
+  margin: 20px 0;
+`;
