@@ -1,6 +1,6 @@
 ## 배포
 
-[배포 URL](https://iridescent-tarsier-a2f6fa.netlify.app/checkout/1)
+[배포 URL](https://coupang-clone-2-stage6.netlify.app/checkout/1)
 
 <br/>
 
