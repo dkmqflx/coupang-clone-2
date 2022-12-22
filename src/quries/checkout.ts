@@ -7,9 +7,12 @@ export const useGetAddress = () => {
 };
 
 export const usePayment = () => {
-  return useMutate((data: paymentType) => CheckoutService.payment(data), {
-    onSuccess() {
-      window.alert('결제가 완료되었습니다.');
-    },
-  });
+  return useMutate<boolean, paymentType>(
+    (data: paymentType) => CheckoutService.payment(data),
+    {
+      onSuccess() {
+        window.alert('결제가 완료되었습니다.');
+      },
+    }
+  );
 };
