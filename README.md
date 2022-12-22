@@ -1,6 +1,6 @@
 ## 배포
 
-[배포 URL](https://coupang-clone-stage4.netlify.app/products?offset=0&limit=12&sorter=bestAsc)
+[배포 URL](https://coupang-clone-2-stage4.netlify.app/products?offset=0&limit=12&sorter=bestAsc)
 
 <br/>
 
