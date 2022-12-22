@@ -24,6 +24,7 @@ const AddressPopUp = () => {
       ({ id }: { id: number }) => id === selectedId
     );
     postMessage(selectedAddress);
+    window.close();
   };
 
   return (

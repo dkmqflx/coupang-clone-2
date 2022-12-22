@@ -69,7 +69,11 @@ const Order = ({
       <Table>
         <caption>
           <span>받는사람정보</span>
-          <DeliveryButton onClick={() => onPopUpAddress(id)}>
+          <DeliveryButton
+            onClick={() =>
+              onPopUpAddress(selectedAddress ? selectedAddress.id : id)
+            }
+          >
             배송지변경
           </DeliveryButton>
         </caption>
