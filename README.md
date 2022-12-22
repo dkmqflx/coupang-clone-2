@@ -1,6 +1,6 @@
 ## 배포
 
-[배포 URL](https://coupang-clone-stage5.netlify.app/cart)
+[배포 URL](https://coupang-clone-2-stage5.netlify.app/cart)
 
 <br/>
 
