@@ -42,6 +42,10 @@
 
   - 모든 판매자배송 상품은 따로 배송된다고 생각해주세요
 
+  - 상품 수량 변경 기능을 단순히 구현하면 1초동안 상품 수량 증가 버튼을 10번 누른 경우, 서버에 10번 요청을 보내야할 수도 있습니다! 요청이 덜 발생하도록 최적화해보아요.
+
+  - 상품 수량 변경, 삭제 API는 50% 확률로 실패하도록 해두었습니다. 에러 상황을 적절히 대응해보아요
+
 ---
 
 ### API 목록
@@ -374,4 +378,28 @@ useEffect(() => {
   const sellerItems = filterItemsByType(data, SELLER_ITEM);
   setSellerItems(sellerItems);
 }, [data]);
+```
+
+<br/>
+
+---
+
+### Debounce
+
+- 구현 사항 중에 `상품 수량 변경 기능을 단순히 구현하면 1초동안 상품 수량 증가 버튼을 10번 누른 경우, 서버에 10번 요청을 보내야할 수도 있습니다! 요청이 덜 발생하도록 최적화해보아요.`라는 항목이 있습니다.
+
+- 이러한 문제를 방지하기 위해 debounce를 사용했습니다. 아래처럼 0.5초라는 시간 간격을 정해주고 여러번 클릭이 일어나더라도 0.5초가 지난 후 하나의 요청만 발생하도록 처리했습니다.
+
+```tsx
+// components/CartItems.tsx
+
+...
+
+  const { mutate: updateMutate } = useUpdateCartItem(id); // 상품 수량 업데이트
+
+
+  const handleUpdateQuantity = debounce((quantity: string) => {
+    updateMutate(Number(quantity));
+  }, 500);
+
 ```
